@@ -1,1 +1,1 @@
-Test
+To launch you will need to use the shortcut, This is there because the runnable Jar file is encased by the LWJGL native files.
