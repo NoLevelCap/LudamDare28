@@ -31,7 +31,7 @@ public class Tile {
 			}
 		} else {
 			if(lineno == 9){
-				this.type = 6;
+				this.type = 5;
 			} else {
 				this.type = 1;
 			}
@@ -69,9 +69,6 @@ public class Tile {
 			return Texture;
 		case 5:
 			Texture = new TextureRegion(TileSet, 128, 0, 32, 32);
-			return Texture;
-		case 6:
-			Texture = new TextureRegion(TileSet, 160, 0, 32, 32);
 			return Texture;
 		default:
 			Texture = new TextureRegion(TileSet, 0, 0, 32, 32);

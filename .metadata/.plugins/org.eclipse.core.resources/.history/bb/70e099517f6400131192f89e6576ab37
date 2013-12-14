@@ -70,7 +70,7 @@ public class Tile {
 		case 5:
 			Texture = new TextureRegion(TileSet, 128, 0, 32, 32);
 			return Texture;
-		case 6:
+		case 5:
 			Texture = new TextureRegion(TileSet, 160, 0, 32, 32);
 			return Texture;
 		default:

@@ -12,7 +12,7 @@ import mdesl.graphics.Texture;
 
 public class World {
 	
-	private Tile Tiles[][] = new Tile[50][3];
+	private Tile Tiles[][] = new Tile[50][2];
 	private SpriteBatch draw;
 	public Texture Background;
 	public Texture Opacity;
@@ -21,7 +21,6 @@ public class World {
 		this.draw = draw;
 		try {
 			this.Background = new Texture(this.draw.getResource("Background.png"));
-			this.Opacity = new Texture(this.draw.getResource("CloudFilter.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,8 +30,7 @@ public class World {
 	public void render(){
 		draw.begin();
 		draw.draw(Background, 0, 0, Display.getWidth()*2, Display.getHeight());
-		draw.draw(Opacity, 0, 0, Display.getWidth()*2, Display.getHeight());
-		for(int vno = 0; vno<= 2; vno++){
+		for(int vno = 0; vno<= 1; vno++){
 			for(int lineno = 0; lineno<= 49; lineno++){
 				Tiles[lineno][vno].render();
 			}
@@ -46,9 +44,9 @@ public class World {
 	
 	public void create(){
 		//Generation Code
-		for(int vno = 0; vno<= 2; vno++){
+		for(int vno = 0; vno<= 1; vno++){
 			for(int lineno = 0; lineno<= 49; lineno++){
-				Tile tile = new Tile(lineno, vno+1, 0, draw);
+				Tile tile = new Tile(lineno, vno+1, vno, draw);
 				Tiles[lineno][vno] = tile;
 			}
 		}

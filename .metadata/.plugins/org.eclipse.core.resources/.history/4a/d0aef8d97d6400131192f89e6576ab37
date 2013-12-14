@@ -48,7 +48,7 @@ public class World {
 		//Generation Code
 		for(int vno = 0; vno<= 2; vno++){
 			for(int lineno = 0; lineno<= 49; lineno++){
-				Tile tile = new Tile(lineno, vno+1, 0, draw);
+				Tile tile = new Tile(lineno, vno+2, vno, draw);
 				Tiles[lineno][vno] = tile;
 			}
 		}

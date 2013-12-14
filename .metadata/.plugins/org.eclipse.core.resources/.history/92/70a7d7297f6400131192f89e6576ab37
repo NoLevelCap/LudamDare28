@@ -21,7 +21,7 @@ public class Tile {
 	public Tile(int lineno, int vno, int type, SpriteBatch draw){
 		this.lineno = lineno;
 		this.vno = vno;
-		if(vno == 3) {
+		if(vno == 1) {
 			if(lineno == 0){
 				this.type = 3;
 			} else if(lineno == 9){
@@ -30,11 +30,7 @@ public class Tile {
 				this.type = 4;
 			}
 		} else {
-			if(lineno == 9){
-				this.type = 6;
-			} else {
-				this.type = 1;
-			}
+			this.type = 1;
 		}
 		this.draw = draw;
 		try {
@@ -69,9 +65,6 @@ public class Tile {
 			return Texture;
 		case 5:
 			Texture = new TextureRegion(TileSet, 128, 0, 32, 32);
-			return Texture;
-		case 6:
-			Texture = new TextureRegion(TileSet, 160, 0, 32, 32);
 			return Texture;
 		default:
 			Texture = new TextureRegion(TileSet, 0, 0, 32, 32);
