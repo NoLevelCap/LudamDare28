@@ -1,0 +1,12 @@
+package com.nolevelcap.player.info;
+
+public class ResearchContraption extends Power {
+
+	public static final String desc = "Get a intellect boost from a mystical 'PC' from the future";
+	
+	public ResearchContraption(int id, int lvl) {
+		super();
+	}
+
+	public void init(){}
+}

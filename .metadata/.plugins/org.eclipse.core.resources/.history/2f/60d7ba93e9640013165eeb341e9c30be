@@ -1,0 +1,16 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.SpriteBatch;
+
+public class Power {
+	
+	public static final String desc = "";
+	
+	public Power(){}
+	
+	public void init(){}
+
+	public void render(SpriteBatch draw, int ox, int oy) {
+		draw.draw(texture, id*64, oy+lvl*64, 64, 64);
+	}
+}

@@ -1,0 +1,16 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.Texture;
+
+public class SuperStar extends Power {
+
+	public static final String desc = "Get a intellect boost from a mystical 'PC' from the future";
+	
+	public Gore2Gold(int id, int lvl, Texture source) {
+		super(id, lvl, source);
+	}
+	
+	public void init(){}
+	
+
+}

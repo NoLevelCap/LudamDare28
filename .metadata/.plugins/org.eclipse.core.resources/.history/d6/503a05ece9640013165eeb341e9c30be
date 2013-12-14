@@ -1,0 +1,13 @@
+package com.nolevelcap.player.info;
+
+public class FountainOfYouth extends Power {
+
+	public static final String desc = "Get a intellect boost from a mystical 'PC' from the future";
+	
+	public FountainOfYouth(int id, int lvl) {
+		super(id, lvl, null);
+	}
+	
+	public void init(){}
+
+}

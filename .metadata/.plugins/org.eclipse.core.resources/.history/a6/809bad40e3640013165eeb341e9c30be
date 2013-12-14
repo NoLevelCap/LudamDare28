@@ -1,0 +1,10 @@
+package com.nolevelcap.player.info;
+
+public class Power {
+	
+	public static final String desc = "";
+	
+	public Power(int id){
+		
+	}
+}

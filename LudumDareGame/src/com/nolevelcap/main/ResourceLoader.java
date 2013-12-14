@@ -9,18 +9,25 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
+import mdesl.graphics.text.BitmapFont;
 
 public class ResourceLoader {
 	
 	private ClassLoader classloader;
 	public HashMap<String, Texture> Textures;
 	public HashMap<String, Texture> TextureRegions;
+	private SpriteBatch draw;
 	
-	public ResourceLoader(ClassLoader classloader){
-		this.classloader = classloader;
+	public ResourceLoader(SpriteBatch draw){
+		this.draw = draw;
 	}
 	
+	public BitmapFont LoadFont() {
+		
+	}
+
 	public File LoadFromFile(String loc){
 		System.out.println(loc);
 		File file = new File(loc);

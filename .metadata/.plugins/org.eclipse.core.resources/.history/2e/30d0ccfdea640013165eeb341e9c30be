@@ -1,0 +1,25 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class Power {
+
+	public TextureRegion texture;
+	public int id, lvl;
+	private static final int width = 256;
+	private static final int height = 256;
+	
+	public Power(int id, int lvl, Texture source){
+		texture = new TextureRegion(source, 0, 0, 32, 32);
+		this.id = id;
+		this.lvl = lvl;
+	}
+	
+	public void init(){}
+
+	public void render(SpriteBatch draw, int ox, int oy) {
+		draw.draw(texture, ox+id*width, oy+lvl*height, width, height);
+	}
+}

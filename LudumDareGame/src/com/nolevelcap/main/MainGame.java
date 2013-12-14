@@ -16,9 +16,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.FloatBuffer;
 
+import mdesl.graphics.Color;
 import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
 import mdesl.graphics.glutils.ShaderProgram;
+import mdesl.graphics.text.BitmapFont;
 import mdesl.test.Game;
 import mdesl.test.SimpleGame;
 import mdesl.test.Util;
@@ -30,6 +32,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import com.nolevelcap.player.Physics;
 import com.nolevelcap.player.Player;
+import com.nolevelcap.player.info.Powers;
 import com.nolevelcap.world.World;
 
 
@@ -45,7 +48,10 @@ public class MainGame extends SimpleGame {
 	private Player player;
 	private Physics physics;
 	private UI ui;
+	private Powers powers;
+	private MouseHandelling mouse;
 	public long timestart;
+	private BitmapFont font;
 	
 	public static void main(String[] args) throws LWJGLException{
 		Game game = new MainGame();
@@ -61,12 +67,17 @@ public class MainGame extends SimpleGame {
 	protected void render() throws LWJGLException {
 		super.render();
 		
-		player.animation();
+		//player.animation();
 		
-		world.render();
+		/*world.render();
 		player.render();
-		ui.render();
+		ui.render();*/
 		
+		powers.render();
+		
+		/*draw.begin();
+		font.drawText(draw, "HELLO", 750, 50);
+		draw.end();*/
 		logic();
 		
 	}
@@ -80,10 +91,19 @@ public class MainGame extends SimpleGame {
 		
 		classLoader = Thread.currentThread().getContextClassLoader();
 		resourceloader = new ResourceLoader(classLoader);
-		world = new World(draw);
+		/*world = new World(draw);
 		physics = new Physics(this);
 		player = new Player(draw, world, physics);
-		ui = new UI(draw);
+		ui = new UI(draw);*/
+		mouse = new MouseHandelling();
+		powers = new Powers(draw, mouse);
+		try {
+			font = new BitmapFont(draw.getResource("FontFile.fnt"), draw.getResource("FontFile_0.png"));
+            //font = new BitmapFont(Util.getResource("res/ptsans.fnt"), Util.getResource("res/ptsans_00.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			resourceloader.initTextures();
@@ -101,9 +121,11 @@ public class MainGame extends SimpleGame {
 	
 	
 	protected void logic() {
-		player.checkForInput();
+		mouse.logic();
+		powers.logic(mouse);
+		/*player.checkForInput();
 		world.logic();
-		player.logic();
+		player.logic();*/
 	}
 	
 	public ResourceLoader getResourceLoader(){

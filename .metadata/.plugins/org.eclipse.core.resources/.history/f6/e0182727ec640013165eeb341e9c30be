@@ -1,0 +1,19 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class HolySlimes extends Power {
+
+	public static final String desc = "Get All The Slimes On Your Side!";
+	
+	public HolySlimes(int id, int lvl, Texture source) {
+		super(id, lvl, null);
+		texture = new TextureRegion(source, 0, 0, 32, 32);
+	}
+	
+	public void init(){}
+	
+
+}

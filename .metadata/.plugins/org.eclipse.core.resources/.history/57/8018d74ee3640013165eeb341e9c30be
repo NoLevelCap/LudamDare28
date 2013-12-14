@@ -1,0 +1,9 @@
+package com.nolevelcap.player.info;
+
+public class HolySlimes extends Power {
+
+	public HolySlimes(int id) {
+		super(id);
+	}
+
+}

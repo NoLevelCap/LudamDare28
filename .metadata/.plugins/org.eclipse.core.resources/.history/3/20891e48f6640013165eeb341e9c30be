@@ -1,0 +1,120 @@
+package com.nolevelcap.main;
+
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_LIGHT_MODEL_AMBIENT;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLight;
+import static org.lwjgl.opengl.GL11.glLightModel;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.FloatBuffer;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.glutils.ShaderProgram;
+import mdesl.test.Game;
+import mdesl.test.SimpleGame;
+import mdesl.test.Util;
+
+import org.lwjgl.BufferUtils;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
+
+import com.nolevelcap.player.Physics;
+import com.nolevelcap.player.Player;
+import com.nolevelcap.player.info.Powers;
+import com.nolevelcap.world.World;
+
+
+public class MainGame extends SimpleGame {
+	
+	private static final int SWIDTH = 1280;
+	private static final int SHEIGHT = 720;
+	private SpriteBatch draw;
+	public Texture tex;
+	private ResourceLoader resourceloader;
+	private ClassLoader classLoader;
+	private World world;
+	private Player player;
+	private Physics physics;
+	private UI ui;
+	private Powers powers;
+	private MouseHandelling mouse;
+	public long timestart;
+	
+	public static void main(String[] args) throws LWJGLException{
+		Game game = new MainGame();
+		game.setDisplayMode(SWIDTH, SHEIGHT, false);
+		game.start();
+		
+	}
+
+	protected void resize() throws LWJGLException {
+		super.resize();
+	}
+
+	protected void render() throws LWJGLException {
+		super.render();
+		
+		//player.animation();
+		
+		/*world.render();
+		player.render();
+		ui.render();*/
+		
+		powers.render();
+		
+		logic();
+		
+	}
+
+	protected void create() throws LWJGLException {
+		super.create();
+		
+		glClearColor(0.5f, .5f, .5f, 1f);
+		
+		draw = new SpriteBatch();
+		
+		classLoader = Thread.currentThread().getContextClassLoader();
+		resourceloader = new ResourceLoader(classLoader);
+		/*world = new World(draw);
+		physics = new Physics(this);
+		player = new Player(draw, world, physics);
+		ui = new UI(draw);*/
+		powers = new Powers(draw);
+		
+		
+		try {
+			resourceloader.initTextures();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		timestart = this.getTime();
+		
+	}
+
+	protected void dispose() throws LWJGLException {
+		super.dispose();
+	}
+	
+	
+	protected void logic() {
+		/*player.checkForInput();
+		world.logic();
+		player.logic();*/
+	}
+	
+	public ResourceLoader getResourceLoader(){
+		return resourceloader;
+	}
+	
+}

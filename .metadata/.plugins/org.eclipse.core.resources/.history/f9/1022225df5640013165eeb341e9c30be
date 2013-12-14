@@ -1,0 +1,14 @@
+package com.nolevelcap.main;
+
+import org.lwjgl.input.Mouse;
+
+public class MouseHandelling {
+	public void logic(){
+		int x = Mouse.getX(); // will return the X coordinate on the Display.
+		int y = Mouse.getY(); // will return the Y coordinate on the Display.
+	}
+	
+	public boolean doesTheMouseIntersectThis(Rectangle comp){
+		return null;
+	}
+}

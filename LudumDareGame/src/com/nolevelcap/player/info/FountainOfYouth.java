@@ -1,0 +1,15 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.Texture;
+
+public class FountainOfYouth extends Power {
+
+	public static final String desc = "Get a intellect boost from a mystical 'PC' from the future";
+	
+	public FountainOfYouth(int id, int lvl, Texture source) {
+		super(3, id, lvl, source);
+	}
+	
+	public void init(){}
+
+}

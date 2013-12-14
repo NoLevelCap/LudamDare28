@@ -1,0 +1,14 @@
+package com.nolevelcap.player.info;
+
+public class HolySlimes extends Power {
+
+	public static final String desc = "Get All The Slimes On Your Side!";
+	public TextureRegion
+	
+	public HolySlimes(int id, int lvl) {
+		super();
+	}
+	
+	public void init(){}
+
+}
