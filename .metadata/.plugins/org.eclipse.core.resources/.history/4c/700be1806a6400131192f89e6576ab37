@@ -1,0 +1,25 @@
+package com.nolevelcap.main;
+
+import java.io.File;
+import java.util.HashMap;
+
+import mdesl.graphics.Texture;
+
+public class ResourceLoader {
+	
+	private ClassLoader classloader;
+	public HashMap<Integer, Texture> Textures;
+	
+	public ResourceLoader(ClassLoader classloader){
+		this.classloader = classloader;
+	}
+	
+	public File LoadFromFile(String loc){
+		File file = new File(loc);
+		return file;
+	}
+	
+	public void ReadTextures(File file){
+		
+	}
+}

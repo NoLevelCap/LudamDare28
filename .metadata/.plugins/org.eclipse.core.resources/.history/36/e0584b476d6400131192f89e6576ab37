@@ -1,0 +1,35 @@
+package com.nolevelcap.main;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+
+import mdesl.graphics.Texture;
+
+public class ResourceLoader {
+	
+	private ClassLoader classloader;
+	public HashMap<String, Texture> Textures;
+	public HashMap<String, Texture> TextureRegions;
+	
+	public ResourceLoader(ClassLoader classloader){
+		this.classloader = classloader;
+	}
+	
+	public File LoadFromFile(String loc){
+		System.out.println(loc);
+		File file = new File(loc);
+		return file;
+	}
+	
+	public void ReadTextures(File file) throws IOException{
+		FileReader FileReader = new FileReader(file);
+		char next = (char) FileReader.read();
+		while (!(next == ':')){
+			
+		}
+	}
+}

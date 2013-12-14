@@ -1,0 +1,7 @@
+package com.nolevelcap.main;
+
+public class ResourceLoader {
+	public ResourceLoader(ClassLoader classloader){
+		
+	}
+}

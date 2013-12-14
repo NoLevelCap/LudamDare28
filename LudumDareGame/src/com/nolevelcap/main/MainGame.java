@@ -17,8 +17,10 @@ public class MainGame extends SimpleGame {
 	
 	private static final int SWIDTH = 1280;
 	private static final int SHEIGHT = 720;
-	private SpriteBatch Draw;
+	private SpriteBatch draw;
 	public Texture tex;
+	private ResourceLoader resourceloader;
+	private ClassLoader classLoader;
 	
 	public static void main(String[] args) throws LWJGLException{
 		Game game = new MainGame();
@@ -34,10 +36,11 @@ public class MainGame extends SimpleGame {
 	protected void render() throws LWJGLException {
 		super.render();
 		
-		Draw.begin();
-		Draw.draw(tex, 0, 0, 500, 500);
-		Draw.end();
+		logic();
 		
+		draw.begin();
+		draw.draw(resourceloader.Textures.get("blue"), 0, 0, 500, 500);
+		draw.end();
 	}
 
 	protected void create() throws LWJGLException {
@@ -45,23 +48,25 @@ public class MainGame extends SimpleGame {
 		
 		glClearColor(0.5f, .5f, .5f, 1f);
 		
-		Draw = new SpriteBatch();
+		draw = new SpriteBatch();
 		
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		URL url = classLoader.getResource("blue.png");
+		classLoader = Thread.currentThread().getContextClassLoader();
+		resourceloader = new ResourceLoader(classLoader);
 		
 		try {
-			tex = new Texture(url);
+			resourceloader.initTextures();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	protected void dispose() throws LWJGLException {
 		super.dispose();
 	}
 	
+	
+	protected void logic() {
+		
+	}
 	
 }

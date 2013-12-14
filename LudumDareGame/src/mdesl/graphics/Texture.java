@@ -180,7 +180,7 @@ public class Texture implements ITexture {
 		//TODO: npot check
 		InputStream input = null;
 		try {
-			System.out.println(pngRef.getPath());
+			System.out.println("Texture Made of: "+ pngRef.getPath());
 			input = pngRef.openStream();
 			PNGDecoder dec = new PNGDecoder(input);
 			

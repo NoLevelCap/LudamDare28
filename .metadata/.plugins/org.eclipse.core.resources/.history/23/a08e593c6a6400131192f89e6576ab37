@@ -1,0 +1,14 @@
+package com.nolevelcap.main;
+
+public class ResourceLoader {
+	
+	private ClassLoader classloader;
+	
+	public ResourceLoader(ClassLoader classloader){
+		this.classloader = classloader;
+	}
+	
+	public void LoadFromFile(String loc){
+		
+	}
+}
