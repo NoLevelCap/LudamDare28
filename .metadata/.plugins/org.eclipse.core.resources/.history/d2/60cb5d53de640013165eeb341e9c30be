@@ -9,7 +9,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.nolevelcap.main.MainGame;
-import com.nolevelcap.player.effects.JumpEffect;
 import com.nolevelcap.world.World;
 
 import mdesl.graphics.SpriteBatch;
