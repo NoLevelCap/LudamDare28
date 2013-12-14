@@ -1,16 +1,32 @@
 package com.nolevelcap.main;
 
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_LIGHT_MODEL_AMBIENT;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
 import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLight;
+import static org.lwjgl.opengl.GL11.glLightModel;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.FloatBuffer;
 
 import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
+import mdesl.graphics.glutils.ShaderProgram;
 import mdesl.test.Game;
 import mdesl.test.SimpleGame;
+import mdesl.test.Util;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 
 import com.nolevelcap.player.Physics;
 import com.nolevelcap.player.Player;
@@ -28,6 +44,7 @@ public class MainGame extends SimpleGame {
 	private World world;
 	private Player player;
 	private Physics physics;
+	private UI ui;
 	public long timestart;
 	
 	public static void main(String[] args) throws LWJGLException{
@@ -44,10 +61,11 @@ public class MainGame extends SimpleGame {
 	protected void render() throws LWJGLException {
 		super.render();
 		
+		player.animation();
+		
 		world.render();
 		player.render();
-		
-		player.animation();
+		ui.render();
 		
 		logic();
 		
@@ -65,6 +83,7 @@ public class MainGame extends SimpleGame {
 		world = new World(draw);
 		physics = new Physics(this);
 		player = new Player(draw, world, physics);
+		ui = new UI(draw);
 		
 		try {
 			resourceloader.initTextures();
@@ -73,6 +92,7 @@ public class MainGame extends SimpleGame {
 		}
 		
 		timestart = this.getTime();
+		
 	}
 
 	protected void dispose() throws LWJGLException {

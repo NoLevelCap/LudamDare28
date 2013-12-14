@@ -143,7 +143,7 @@ public abstract class Game {
 			
 			// Flip the buffers and sync to 60 FPS
 			Display.update();
-			Display.sync(60);
+			//Display.sync(120);
 		}
 		
 		// Dispose any resources and destroy our window

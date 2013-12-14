@@ -1,0 +1,11 @@
+package com.nolevelcap.main;
+
+public class UI {
+	public UI(){
+		
+	}
+	
+	public void render(){
+		
+	}
+}

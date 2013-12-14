@@ -1,0 +1,59 @@
+package com.nolevelcap.player;
+
+import java.io.IOException;
+
+import org.lwjgl.Sys;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class JumpEffect {
+	
+	private Texture extraOneTileSet;
+	private TextureRegion CurrentFrame;
+	private TextureRegion frames[];
+	private long sinceLastMove, currentTime, lastTime;
+	private int AnimationIndex;
+	private SpriteBatch draw;
+	
+	public JumpEffect(SpriteBatch draw){
+		this.draw = draw;
+		try {
+			this.extraOneTileSet = new Texture(this.draw.getResource("player//JumpExtra.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		initAnimation();
+	}
+	
+    public void render(){
+		
+	}
+    
+    public void initAnimation(){
+    	
+    }
+    
+    public void animation(){
+    	int AnimationSpeed = 100;
+		currentTime = getTime();
+		sinceLastMove = currentTime - lastTime;
+		if (sinceLastMove > AnimationSpeed){
+			if(AnimationIndex<3){
+				AnimationIndex+=1;
+			} else {
+				AnimationIndex = 0;
+			}
+			sinceLastMove = 0;
+			lastTime = currentTime;
+			CurrentFrame = frame[AnimationIndex];
+		}
+		}
+		moving = false;
+    }
+    
+    public long getTime() {
+	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+}

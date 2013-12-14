@@ -34,22 +34,23 @@ public class Player {
 	private boolean inAir;
 	private long sinceLastMove, currentTime, lastTime;
 	private int AnimationIndex;
-	private boolean flipped, moving;
+	private boolean flipped, moving, jumped, colliding, scrolling;
+	private JumpEffect jump;
 	
 	public Player(SpriteBatch draw, World world, Physics physics){
 		this.world = world;
 		this.physics = physics;
 		this.draw = draw;
+		jump = new JumpEffect(draw);
 		try {
 			this.playerTileSet = new Texture(this.draw.getResource("player//playerTileset.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		location = new Vector2f(50, 0);
+		location = new Vector2f(50, 128);
 		collisionBox = new Rectangle((int) location.x, (int) location.y, width, height);
 		ly = location.y;
 		dy = location.y;
-		
 		initFrames();
 	}
 	
@@ -57,9 +58,19 @@ public class Player {
 		draw.begin();
 		draw.draw(Currentplayer, location.x, location.y, width, height);
 		draw.end();
+		if(inAir ){
+		jump.render(location.x, location.y);
+		} 
 	}
 	
 	public void logic(){
+		
+		if (world.shift == 0){
+			scrolling = false;
+		} else {
+			scrolling = true;
+		}
+		
 		if (YVelocity > 0 || YVelocity < 0){
 			System.out.println("Velocity"+YVelocity+" inAir"+inAir+" location.y"+location.y);
 		System.out.println(location.y);
@@ -73,9 +84,10 @@ public class Player {
 		Rectangle desiredRect = new Rectangle((int) location.x,(int) dy, width, height);
 		
 		for(int vno = 0; vno<= world.TileHeight-1; vno++){
-			for(int lineno = 0; lineno<= 49; lineno++){
+			for(int lineno = 0; lineno<= world.WorldLength-1; lineno++){
 				if(physics.checkForCollision(desiredRect, world.Tiles[lineno][vno].collisionBox)){
 				//System.out.println("collision");
+					colliding = true;
 					YVelocity = 0;
 					dy = ly;
 				} 
@@ -87,6 +99,7 @@ public class Player {
 		
 		if (location.y>295){
 			inAir = false;
+			jumped = false;
 		} else {
 			inAir = true;
 		}
@@ -94,11 +107,15 @@ public class Player {
 	}
 	
 	public void animation(){
+		int AnimationSpeed = 100;
 		if(moving){
+			AnimationSpeed = 40;
+		}
 		currentTime = getTime();
 		sinceLastMove = currentTime - lastTime;
 		//System.out.println(sinceLastMove);
-		if (sinceLastMove > 60){
+		if(scrolling && !moving || moving && !inAir || !flipped && !inAir && scrolling){
+		if (sinceLastMove > AnimationSpeed){
 			System.out.println("Activate+"+sinceLastMove);
 			if(AnimationIndex<3){
 				System.out.println("Activate ++");
@@ -110,8 +127,7 @@ public class Player {
 			sinceLastMove = 0;
 			lastTime = currentTime;
 			Currentplayer = player[AnimationIndex];
-		}
-		}
+		}}
 		moving = false;
 	}
 	
@@ -166,6 +182,7 @@ public class Player {
 			if(YVelocity < 1 && YVelocity > -1 && !inAir){
 			    YVelocity -= 20;
 				System.out.println("Velocity"+YVelocity+" inAir"+inAir);
+				jumped = true;
 			    }
 		}
 		
@@ -173,7 +190,8 @@ public class Player {
 			if(YVelocity < 1 && YVelocity > -1 && !inAir){
 			    YVelocity -= 20;
 				System.out.println("Velocity"+YVelocity+" inAir"+inAir);
-			    }
+				jumped = true;
+			}
 		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {

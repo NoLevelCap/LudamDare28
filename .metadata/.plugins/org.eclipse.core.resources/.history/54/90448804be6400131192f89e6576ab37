@@ -1,0 +1,15 @@
+package com.nolevelcap.player;
+
+public class JumpEffect {
+	public JumpEffect(){
+		
+	}
+	
+    public void render(){
+		
+	}
+    
+    public void initAnimation(){
+    	
+    }
+}

@@ -1,0 +1,183 @@
+package com.nolevelcap.main;
+
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_LIGHT_MODEL_AMBIENT;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLight;
+import static org.lwjgl.opengl.GL11.glLightModel;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.FloatBuffer;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.glutils.ShaderProgram;
+import mdesl.test.Game;
+import mdesl.test.SimpleGame;
+import mdesl.test.Util;
+
+import org.lwjgl.BufferUtils;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
+
+import com.nolevelcap.player.Physics;
+import com.nolevelcap.player.Player;
+import com.nolevelcap.world.World;
+
+
+public class MainGame extends SimpleGame {
+	
+	private static final int SWIDTH = 1280;
+	private static final int SHEIGHT = 720;
+	private SpriteBatch draw;
+	public Texture tex;
+	private ResourceLoader resourceloader;
+	private ClassLoader classLoader;
+	private World world;
+	private Player player;
+	private Physics physics;
+	public long timestart;
+	ShaderProgram shader;
+	
+	public static final float DEFAULT_LIGHT_Z = 0.075f;
+	
+	public static final Vector3f LIGHT_POS = new Vector3f(0f,0f,DEFAULT_LIGHT_Z);
+	
+	//Light RGB and intensity (alpha)
+		public static final Vector4f LIGHT_COLOR = new Vector4f(1f, 0.8f, 0.6f, 1f);
+
+		//Ambient RGB and intensity (alpha)
+		public static final Vector4f AMBIENT_COLOR = new Vector4f(0.6f, 0.6f, 1f, 0.2f);
+
+		//Attenuation coefficients for light falloff
+		public static final Vector3f FALLOFF = new Vector3f(.4f, 3f, 20f);
+	
+	public static void main(String[] args) throws LWJGLException{
+		Game game = new MainGame();
+		game.setDisplayMode(SWIDTH, SHEIGHT, false);
+		game.start();
+		
+	}
+
+	protected void resize() throws LWJGLException {
+		super.resize();
+	}
+
+	protected void render() throws LWJGLException {
+		super.render();
+		
+		world.render();
+		player.render();
+		
+		player.animation();
+		
+		draw.begin();
+		
+		//shader will now be in use...
+		
+		//update light position, normalized to screen resolution
+		float x = Mouse.getX() / (float)Display.getWidth();
+		float y = Mouse.getY() / (float)Display.getHeight();
+		LIGHT_POS.x = x;
+		LIGHT_POS.y = y;
+		
+		//send a Vector4f to GLSL
+		shader.setUniformf("LightPos", LIGHT_POS);
+		
+		//bind normal map to texture unit 1
+		glActiveTexture(GL_TEXTURE1);
+		rockNormals.bind();
+		
+		//bind diffuse color to texture unit 0
+		glActiveTexture(GL_TEXTURE0);
+		rock.bind();
+		
+		//draw the texture unit 0 with our shader effect applied
+		draw.draw(rock, 50, 50);
+		
+		draw.end();
+		
+		logic();
+		
+	}
+
+	protected void create() throws LWJGLException {
+		super.create();
+		
+		glClearColor(0.5f, .5f, .5f, 1f);
+		
+		try {
+			//our basic pass-through vertex shader
+			final String VERT = Util.readFile(Util.getResourceAsStream("res/shadertut/lesson6.vert"));
+
+			//our fragment shader, which does the blur in one direction at a time
+			final String FRAG = Util.readFile(Util.getResourceAsStream("res/shadertut/lesson6.frag"));
+
+			//create our shader program
+			ShaderProgram.setStrictMode(false);
+			shader = new ShaderProgram(VERT, FRAG, SpriteBatch.ATTRIBUTES);
+
+			//Good idea to log any warnings if they exist
+			if (shader.getLog().length()!=0)
+				System.out.println(shader.getLog());
+
+			//always a good idea to set up default uniforms...
+			shader.use();
+			
+			//our normal map
+			shader.setUniformi("u_normals", 1); //GL_TEXTURE1
+			
+			//light/ambient colors
+			shader.setUniformf("LightColor", LIGHT_COLOR);
+			shader.setUniformf("AmbientColor", AMBIENT_COLOR);
+			shader.setUniformf("Falloff", FALLOFF);
+			
+			draw = new SpriteBatch(shader);
+			
+			classLoader = Thread.currentThread().getContextClassLoader();
+			resourceloader = new ResourceLoader(classLoader);
+			world = new World(draw);
+			physics = new Physics(this);
+			player = new Player(draw, world, physics);
+			
+			try {
+				resourceloader.initTextures();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			timestart = this.getTime();
+		} catch (Exception e) { 
+			//simple exception handling...
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+	}
+
+	protected void dispose() throws LWJGLException {
+		super.dispose();
+	}
+	
+	
+	protected void logic() {
+		player.checkForInput();
+		world.logic();
+		player.logic();
+	}
+	
+	public ResourceLoader getResourceLoader(){
+		return resourceloader;
+	}
+	
+}

@@ -1,0 +1,74 @@
+package com.nolevelcap.player;
+
+import java.io.IOException;
+
+import org.lwjgl.Sys;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class JumpEffect {
+	
+	private Texture extraOneTileSet;
+	TextureRegion CurrentFrame;
+	TextureRegion frames[];
+	private long sinceLastMove, currentTime, lastTime;
+	private int AnimationIndex;
+	private SpriteBatch draw;
+	private int width = 128;
+	private int height = 64;
+	
+	public JumpEffect(SpriteBatch draw){
+		this.draw = draw;
+		try {
+			this.extraOneTileSet = new Texture(this.draw.getResource("player//JumpExtra.png"));
+	    	System.out.print("Test");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		initAnimation();
+	}
+	
+    public void render(float x, float y){
+    	animation();
+    	System.out.print("Test");
+    	draw.begin();
+		draw.draw(CurrentFrame, x-16, y+128, width, height);
+		draw.end();
+	}
+    
+    public void initAnimation(){
+    	System.out.print("INIT");
+    	frames = new TextureRegion[4];
+    	frames[0] = new TextureRegion(extraOneTileSet, 0, 0, width/2, height/2);
+    	frames[1] = new TextureRegion(extraOneTileSet, 64, 0, width/2, height/2);
+    	frames[2] = new TextureRegion(extraOneTileSet, 64*2, 0, width/2, height/2);
+    	frames[3] = new TextureRegion(extraOneTileSet, 64*3, 0, width/2, height/2);
+    	CurrentFrame = frames[0];
+		sinceLastMove = 0;
+		AnimationIndex = 0;
+		lastTime = getTime();
+		System.out.println(lastTime);
+    }
+    
+    public void animation(){
+    	int AnimationSpeed = 100;
+		currentTime = getTime();
+		sinceLastMove = currentTime - lastTime;
+		if (sinceLastMove > AnimationSpeed){
+			if(AnimationIndex<3){
+				AnimationIndex+=1;
+			} else if(AnimationIndex == 3) {
+				AnimationIndex = 0;
+			}
+			sinceLastMove = 0;
+			lastTime = currentTime;
+			CurrentFrame = frames[AnimationIndex];
+		}
+    }
+    
+    public long getTime() {
+	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+}

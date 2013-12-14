@@ -1,7 +1,0 @@
-package com.nolevelcap.world;
-
-public class Tile {
-	public Tile(int width, int height){
-		
-	}
-}

@@ -1,0 +1,19 @@
+package com.nolevelcap.entity;
+
+public class Enemy {
+		public Enemy(){
+			
+		}
+		
+		public void Render(){
+			
+		}
+		
+		public void Logic(){
+			
+		}
+		
+		public void Animation(){
+			
+		}
+}

@@ -1,0 +1,66 @@
+package com.nolevelcap.player;
+
+import java.io.IOException;
+
+import org.lwjgl.Sys;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class JumpEffect {
+	
+	private Texture extraOneTileSet;
+	private TextureRegion CurrentFrame;
+	private TextureRegion frames[];
+	private long sinceLastMove, currentTime, lastTime;
+	private int AnimationIndex;
+	private SpriteBatch draw;
+	private int width = 64;
+	private int height = 32;
+	
+	public JumpEffect(SpriteBatch draw){
+		this.draw = draw;
+		try {
+			this.extraOneTileSet = new Texture(this.draw.getResource("player//JumpExtra.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		initAnimation();
+	}
+	
+    public void render(){
+		
+	}
+    
+    public void initAnimation(){
+    	frames = new TextureRegion[4];
+    	frames[0] = new TextureRegion(extraOneTileSet, 0, 0, width/4, height/4);
+    	frames[1] = new TextureRegion(extraOneTileSet, width/4, 0, width/4, height/4);
+    	frames[2] = new TextureRegion(extraOneTileSet, width/2, 0, width/4, height/4);
+    	frames[3] = new TextureRegion(extraOneTileSet, width-16, 0, width/4, height/4);
+		Currentplayer = player[0];
+		sinceLastMove = 0;
+		AnimationIndex = 0;
+		lastTime = getTime();
+		System.out.println(lastTime);
+    }
+    
+    public void animation(){
+    	int AnimationSpeed = 100;
+		currentTime = getTime();
+		sinceLastMove = currentTime - lastTime;
+		if (sinceLastMove > AnimationSpeed){
+			if(AnimationIndex<3){
+				AnimationIndex+=1;
+			} 
+			sinceLastMove = 0;
+			lastTime = currentTime;
+			CurrentFrame = frames[AnimationIndex];
+		}
+    }
+    
+    public long getTime() {
+	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+}

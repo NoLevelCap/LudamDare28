@@ -1,0 +1,25 @@
+package com.nolevelcap.player;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class JumpEffect {
+	
+	private Texture extraOneTileSet;
+	private long sinceLastMove, currentTime, lastTime;
+	private int AnimationIndex;
+	private SpriteBatch draw;
+	
+	public JumpEffect(SpriteBatch draw){
+		this.draw = draw;
+		
+	}
+	
+    public void render(){
+		
+	}
+    
+    public void initAnimation(){
+    	
+    }
+}
