@@ -1,0 +1,11 @@
+package com.nolevelcap.world;
+
+public class World {
+	public World(){
+		
+	}
+	
+	public void render(){
+		
+	}
+}

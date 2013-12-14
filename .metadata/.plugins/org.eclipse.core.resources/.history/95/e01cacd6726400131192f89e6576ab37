@@ -1,0 +1,7 @@
+package com.nolevelcap.world;
+
+public class GrassTile {
+	public GrassTile(){
+		super();
+	}
+}

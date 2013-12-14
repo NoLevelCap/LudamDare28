@@ -1,0 +1,11 @@
+package com.nolevelcap.world;
+
+public class GrassTile extends Tile{
+	public GrassTile(int lineno, int vno){
+		super(lineno, vno);
+	}
+	
+	public void render(){
+		super.render();
+	}
+}

@@ -1,0 +1,23 @@
+package com.nolevelcap.world;
+
+import com.nolevelcap.main.ResourceLoader;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class GrassTile extends Tile{
+	
+	private ResourceLoader resourceLoader;
+	
+	public GrassTile(int lineno, int vno, ResourceLoader resourceloader){
+		super(lineno, vno, resourceloader);
+		this.resourceLoader = resourceloader;
+		System.out.print(resourceloader);
+		System.out.print(resourceLoader);
+		super.tex = resourceLoader.Textures.get("test");
+	}
+	
+	public void render(SpriteBatch draw){
+		super.render(draw);
+	}
+}

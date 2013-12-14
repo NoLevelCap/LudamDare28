@@ -1,0 +1,12 @@
+package com.nolevelcap.world;
+
+public class Tile {
+	
+	private int width = 128;
+	private int height = 128;
+	private int lineno;
+	
+	public Tile(int lineno){
+		this.lineno = lineno;
+	}
+}

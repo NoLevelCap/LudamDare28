@@ -59,5 +59,6 @@ public class ResourceLoader {
 	public void initTextures() throws IOException{
 		Textures = new HashMap<String, Texture>();
 		Textures.put("blue", new Texture(classloader.getResource("blue.png")));
+		Textures.put("test", new Texture(classloader.getResource("testImage.png")));
 	}
 }

@@ -1,0 +1,13 @@
+package com.nolevelcap.world;
+
+import mdesl.graphics.SpriteBatch;
+
+public class GrassTile extends Tile{
+	public GrassTile(int lineno, int vno){
+		super(lineno, vno);
+	}
+	
+	public void render(SpriteBatch draw){
+		super.render();
+	}
+}

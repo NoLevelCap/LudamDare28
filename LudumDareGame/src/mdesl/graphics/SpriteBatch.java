@@ -32,6 +32,7 @@ package mdesl.graphics;
 
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 
+import java.net.URL;
 import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.List;
@@ -84,6 +85,8 @@ public class SpriteBatch {
 	protected Texture texture;
 	protected ShaderProgram program;
 
+	protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	
 	protected VertexData data;
 
 	private int idx;
@@ -417,5 +420,10 @@ public class SpriteBatch {
 		data.draw(GL_TRIANGLES, 0, idx);
 		data.unbind();
 		renderCalls++;
+	}
+	
+	public URL getResource(String src){
+		URL loc = classLoader.getResource(src);
+		return loc;
 	}
 }

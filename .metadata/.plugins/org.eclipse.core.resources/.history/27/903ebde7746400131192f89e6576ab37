@@ -1,0 +1,22 @@
+package com.nolevelcap.world;
+
+import com.nolevelcap.main.ResourceLoader;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Tile {
+	
+	private int width = 128;
+	private int height = 128;
+	private int lineno;
+	private int vno;
+	
+	public Tile(int lineno, int vno, ResourceLoader resourceloader){
+		this.lineno = lineno;
+		this.vno = vno;
+	}
+	
+	public void render(SpriteBatch draw, Texture tex){
+	}
+}

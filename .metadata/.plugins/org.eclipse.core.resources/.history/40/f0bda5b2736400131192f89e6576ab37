@@ -1,0 +1,24 @@
+package com.nolevelcap.world;
+
+import java.util.ArrayList;
+
+public class World {
+	
+	private ArrayList<Tile> Tiles;
+	
+	public World(){
+		
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void logic(){
+		
+	}
+	
+	public void create(){
+		
+	}
+}

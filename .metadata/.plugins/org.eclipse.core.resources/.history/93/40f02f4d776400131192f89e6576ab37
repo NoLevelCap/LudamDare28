@@ -1,0 +1,39 @@
+package com.nolevelcap.world;
+
+import java.util.ArrayList;
+
+import com.nolevelcap.main.ResourceLoader;
+
+import mdesl.graphics.SpriteBatch;
+
+public class World {
+	
+	private Tile Tiles[][] = new Tile[49][1];
+	private SpriteBatch draw;
+	private ResourceLoader resourceLoader;
+	
+	public World(SpriteBatch draw, ResourceLoader resourceLoader){
+		this.draw = draw;
+		this.resourceLoader = resourceLoader;
+		create();
+	}
+	
+	public void render(){
+		draw.begin();
+		for ()
+		draw.end();
+	}
+	
+	public void logic(){
+		
+	}
+	
+	public void create(){
+		for(int vno = 0; vno<= 2; vno++){
+			for(int lineno = 0; lineno<= 6; lineno++){
+				Tile tile = new Tile(lineno, vno, resourceLoader);
+				Tiles.add(tile);
+			}
+		}
+	}
+}
