@@ -1,0 +1,20 @@
+package com.nolevelcap.player;
+
+public class Player {
+
+	private Texture player;
+	
+	
+	public Player(){
+		
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void logic(){
+		
+	}
+	
+}

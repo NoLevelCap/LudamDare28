@@ -1,0 +1,18 @@
+package com.nolevelcap.player;
+
+public class Player {
+
+	
+	public Player(){
+		
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void logic(){
+		
+	}
+	
+}

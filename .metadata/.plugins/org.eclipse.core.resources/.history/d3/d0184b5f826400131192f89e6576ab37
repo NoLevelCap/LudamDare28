@@ -1,0 +1,25 @@
+package com.nolevelcap.player;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Player {
+
+	private Texture player;
+	private SpriteBatch draw;
+	
+	
+	public Player(SpriteBatch draw){
+		this.draw = draw;
+		this.player = new Texture(this.draw.getResource("player//player_Animation 1_0.png"));
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void logic(){
+		
+	}
+	
+}

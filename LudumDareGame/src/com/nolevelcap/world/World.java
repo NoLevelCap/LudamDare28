@@ -12,7 +12,7 @@ import mdesl.graphics.Texture;
 
 public class World {
 	
-	private Tile Tiles[][] = new Tile[50][3];
+	public Tile Tiles[][] = new Tile[50][3];
 	private SpriteBatch draw;
 	public Texture Background;
 	public Texture Opacity;

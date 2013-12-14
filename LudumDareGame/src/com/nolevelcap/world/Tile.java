@@ -1,5 +1,6 @@
 package com.nolevelcap.world;
 
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import com.nolevelcap.main.ResourceLoader;
@@ -17,6 +18,7 @@ public class Tile {
 	public Texture TileSet;
 	private SpriteBatch draw;
 	private int type;
+	public Rectangle collisionBox;
 	
 	public Tile(int lineno, int vno, int type, SpriteBatch draw){
 		this.lineno = lineno;
@@ -41,6 +43,11 @@ public class Tile {
 			this.TileSet = new Texture(this.draw.getResource("TileSet.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		if(vno == 3){
+		collisionBox = new Rectangle(lineno*width, 300, width, height/2);
+		} else {
+		collisionBox = new Rectangle(lineno*width, 720-vno*height, width, height);
 		}
 	}
 	

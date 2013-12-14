@@ -1,0 +1,20 @@
+package com.nolevelcap.player;
+
+public class Physics {
+	public void CheckForControls(){
+		
+	}
+	
+	public int getNewY(int Vel, int ObjY){
+		
+		ObjY = ObjY + Vel;
+		
+		return ObjY;
+		
+	}
+	
+	public int getVelocity(int Vel, int Acc, int delta){
+		Vel = Vel + Acc * delta;
+		return Vel;
+	}
+}

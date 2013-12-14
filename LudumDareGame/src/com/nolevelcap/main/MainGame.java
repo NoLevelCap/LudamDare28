@@ -12,6 +12,8 @@ import mdesl.test.SimpleGame;
 
 import org.lwjgl.LWJGLException;
 
+import com.nolevelcap.player.Physics;
+import com.nolevelcap.player.Player;
 import com.nolevelcap.world.World;
 
 
@@ -24,6 +26,9 @@ public class MainGame extends SimpleGame {
 	private ResourceLoader resourceloader;
 	private ClassLoader classLoader;
 	private World world;
+	private Player player;
+	private Physics physics;
+	public long timestart;
 	
 	public static void main(String[] args) throws LWJGLException{
 		Game game = new MainGame();
@@ -39,16 +44,11 @@ public class MainGame extends SimpleGame {
 	protected void render() throws LWJGLException {
 		super.render();
 		
+		world.render();
+		player.render();
+		
 		logic();
 		
-		draw.begin();
-		draw.draw(resourceloader.Textures.get("test"), 0, 720-128*2, 128, 128);
-		draw.draw(resourceloader.Textures.get("blue"), 0, 720-128, 128, 128);
-		draw.draw(resourceloader.Textures.get("blue"), 128, 720-128*2, 128, 128);
-		draw.draw(resourceloader.Textures.get("test"), 128, 720-128, 128, 128);
-		draw.end();
-		
-		world.render();
 	}
 
 	protected void create() throws LWJGLException {
@@ -61,12 +61,16 @@ public class MainGame extends SimpleGame {
 		classLoader = Thread.currentThread().getContextClassLoader();
 		resourceloader = new ResourceLoader(classLoader);
 		world = new World(draw);
+		physics = new Physics(this);
+		player = new Player(draw, world, physics);
 		
 		try {
 			resourceloader.initTextures();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		timestart = this.getTime();
 	}
 
 	protected void dispose() throws LWJGLException {
@@ -75,7 +79,7 @@ public class MainGame extends SimpleGame {
 	
 	
 	protected void logic() {
-		
+		player.logic();
 	}
 	
 	public ResourceLoader getResourceLoader(){

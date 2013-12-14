@@ -1,0 +1,46 @@
+package com.nolevelcap.player;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import org.lwjgl.util.vector.Vector2f;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Player {
+
+	private Texture player;
+	private SpriteBatch draw;
+	private int width = 64;
+	private int height = 128;
+	private Vector2f location;
+	private int Velocity;
+	private int Acceleration;
+	private Rectangle collisionBox;
+	
+	
+	public Player(SpriteBatch draw, MainGame game){
+		this.draw = draw;
+		try {
+			this.player = new Texture(this.draw.getResource("player//player_Animation 1_0.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		location = new Vector2f(50, 300);
+		collisionBox = new Rectangle((int) location.x, (int) location.y, width, height);
+
+		
+	}
+	
+	public void render(){
+		draw.begin();
+		draw.draw(player, location.x, location.y, width, height);
+		draw.end();
+	}
+	
+	public void logic(){
+		
+	}
+	
+}
