@@ -1,0 +1,10 @@
+package com.nolevelcap.main;
+
+import org.lwjgl.LWJGLException;
+
+
+public class MainGame extends SimpleGame {
+	public static void main(String[] args) throws LWJGLException{
+		System.out.print("Test");
+	}
+}
