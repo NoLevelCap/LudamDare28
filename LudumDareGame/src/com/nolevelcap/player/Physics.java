@@ -2,6 +2,9 @@ package com.nolevelcap.player;
 
 import java.awt.Rectangle;
 
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+
 import com.nolevelcap.main.MainGame;
 
 public class Physics {
@@ -12,11 +15,8 @@ public class Physics {
 		this.game = game;
 	}
 	
-	public void CheckForControls(){
-		
-	}
 	
-	public int getNewY(int Vel, int ObjY){
+	public float getNewY(float Vel, float ObjY){
 		
 		ObjY = ObjY + Vel;
 		
@@ -24,11 +24,15 @@ public class Physics {
 		
 	}
 	
-	public float getNewAcceleration(int Acc){
-		return Acc + 0.5;
+	public float getNewAcceleration(float Acc){
+		if (Acc < 0){
+		return Acc += 0.10f;
+		} else {
+		return Acc -= 0.10f;
+		}
 	}
 	
-	public int getVelocity(int Vel, int Acc){
+	public float getVelocity(float Vel, float Acc){
 		Vel = Vel - Acc * game.getDeltaTime();
 		return Vel;
 	}

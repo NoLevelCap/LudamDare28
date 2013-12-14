@@ -11,8 +11,8 @@ import mdesl.graphics.TextureRegion;
 
 public class Tile {
 	
-	private int width = 128;
-	private int height = 128;
+	private int width = 64;
+	private int height = 64;
 	private int lineno;
 	private int vno;
 	public Texture TileSet;
@@ -23,37 +23,19 @@ public class Tile {
 	public Tile(int lineno, int vno, int type, SpriteBatch draw){
 		this.lineno = lineno;
 		this.vno = vno;
-		if(vno == 3) {
-			if(lineno == 0){
-				this.type = 3;
-			} else if(lineno == 9){
-				this.type = 5;
-			} else {
-				this.type = 4;
-			}
-		} else {
-			if(lineno == 9){
-				this.type = 6;
-			} else {
-				this.type = 1;
-			}
-		}
+		this.type = 1;
 		this.draw = draw;
 		try {
 			this.TileSet = new Texture(this.draw.getResource("TileSet.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(vno == 3){
-		collisionBox = new Rectangle(lineno*width, 300, width, height/2);
-		} else {
-		collisionBox = new Rectangle(lineno*width, 720-vno*height, width, height);
-		}
 	}
 	
-	public void render(){
+	public void render(int worldshift){
 		TextureRegion tex = getType(1);
-		draw.draw(getType(type), lineno*width, 720-vno*height, width, height);
+		draw.draw(getType(type), worldshift+lineno*width, 720-vno*height, width, height);
+		collisionBox = new Rectangle(worldshift+lineno*width, 720-vno*height, width, height/2);
 	}
 	
 	public TextureRegion getType(int type){

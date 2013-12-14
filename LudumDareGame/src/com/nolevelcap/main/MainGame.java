@@ -47,6 +47,8 @@ public class MainGame extends SimpleGame {
 		world.render();
 		player.render();
 		
+		player.animation();
+		
 		logic();
 		
 	}
@@ -79,6 +81,8 @@ public class MainGame extends SimpleGame {
 	
 	
 	protected void logic() {
+		player.checkForInput();
+		world.logic();
 		player.logic();
 	}
 	

@@ -1,0 +1,76 @@
+package com.nolevelcap.player;
+
+import java.awt.Rectangle;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+
+import com.nolevelcap.main.MainGame;
+
+public class Physics {
+	
+	private MainGame game;
+	
+	public Physics(MainGame game){
+		this.game = game;
+	}
+	
+	public void checkForInput(){
+		
+		Display.processMessages();
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+		    System.out.println("SPACE KEY IS DOWN");
+		}
+		
+		while (Keyboard.next()) {
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_A) {
+			    System.out.println("A Key Pressed");
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_S) {
+			    System.out.println("S Key Pressed");
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_D) {
+			    System.out.println("D Key Pressed");
+			}
+		    } else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_A) {
+			    System.out.println("A Key Released");
+		        }
+		    	if (Keyboard.getEventKey() == Keyboard.KEY_S) {
+			    System.out.println("S Key Released");
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_D) {
+			    System.out.println("D Key Released");
+			}
+		    }
+		}
+	}
+	
+	public float getNewY(float Vel, float ObjY){
+		
+		ObjY = ObjY + Vel;
+		
+		return ObjY;
+		
+	}
+	
+	public float getNewAcceleration(float Acc){
+		return Acc + 0.5f;
+	}
+	
+	public float getVelocity(float Vel, float Acc){
+		Vel = Vel - Acc * game.getDeltaTime();
+		return Vel;
+	}
+	
+	public boolean checkForCollision(Rectangle one, Rectangle two){
+		if(one.intersects(two)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+}
