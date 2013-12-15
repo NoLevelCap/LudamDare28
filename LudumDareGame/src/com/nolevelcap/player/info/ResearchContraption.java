@@ -4,11 +4,14 @@ import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
 
 public class ResearchContraption extends Power {
-
-	public static final String desc = "Get a intellect boost from a mystical 'PC' from the future";
 	
-	public ResearchContraption(int id, int lvl, Texture source) {
-		super(1, id, lvl, source);
+	public static final int type = 1;
+	public static final int costAmount = 150;
+	public static final String desc[] = {"Spawn a great, marvelous","contraption to help you","with your research"};
+	public static final String name = "The Tome of 'PC'";
+	
+	public ResearchContraption(int id, int lvl, Texture source, SpriteBatch draw) {
+		super(type, id, lvl, source, draw, costAmount, desc, name);
 	}
 	
 	public void init(){}

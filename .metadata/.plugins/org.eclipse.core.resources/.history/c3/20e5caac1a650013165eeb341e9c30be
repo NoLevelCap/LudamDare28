@@ -1,0 +1,29 @@
+package mdesl.graphics;
+
+import java.awt.Rectangle;
+
+import com.nolevelcap.main.MouseHandling;
+
+public class Button {
+	
+	private String buttontext;
+	private SpriteBatch draw;
+	private Rectangle boundingBox; 
+	private boolean mouseHover;
+	
+	public Button(String text, SpriteBatch draw){
+		this.buttontext = text;
+		this.draw = draw;
+	}
+	
+	public void logic(MouseHandling mouse){
+		mouseHover = mouse.mouseHover(boundingBox);
+	}
+	
+	public void render(int x, int y){
+		draw.draw(submitButton, 1080, 653, 168, 64);
+		draw.setColor(Color.BLACK);
+		font.drawText(draw, "Submit", 1100, 670);
+		draw.setColor(Color.WHITE);
+	}
+}

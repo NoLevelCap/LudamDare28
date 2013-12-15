@@ -6,16 +6,17 @@ import mdesl.graphics.TextureRegion;
 
 public class HolySlimes extends Power {
 
-	public static final String desc = "Get All The Slimes On Your Side!";
 	
-	public HolySlimes(int id, int lvl, Texture source) {
-		super(0, id, lvl, source);
+	public static final int type = 0;
+	public static final int costAmount = 10;
+	public static final String desc[] = {"Get the slimes to help you ","in your time of need!"};
+	public static final String name = "The Tome of the Slime";
+	
+	public HolySlimes(int id, int lvl, Texture source, SpriteBatch draw) {
+		super(type, id, lvl, source, draw, costAmount, desc, name);
 	}
 	
 	public void init(){}
 	
-	public void render(SpriteBatch draw, int ox, int oy){
-		super.render(draw, ox, oy);
-	}
 
 }

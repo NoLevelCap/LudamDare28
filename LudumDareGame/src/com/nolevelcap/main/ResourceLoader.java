@@ -20,12 +20,20 @@ public class ResourceLoader {
 	public HashMap<String, Texture> TextureRegions;
 	private SpriteBatch draw;
 	
-	public ResourceLoader(SpriteBatch draw){
+	public ResourceLoader(SpriteBatch draw, ClassLoader cl){
 		this.draw = draw;
+		this.classloader = cl;
 	}
 	
-	public BitmapFont LoadFont() {
-		
+	public BitmapFont LoadFont(String fntFile, String imgFile) {
+		BitmapFont font;
+		try {
+			font = new BitmapFont(draw.getResource(fntFile), draw.getResource(imgFile));
+			return font;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public File LoadFromFile(String loc){
@@ -63,9 +71,15 @@ public class ResourceLoader {
 			return null;
 	}
 	
-	public void initTextures() throws IOException{
+	public void initTextures() {
 		Textures = new HashMap<String, Texture>();
-		Textures.put("blue", new Texture(classloader.getResource("blue.png")));
-		Textures.put("test", new Texture(classloader.getResource("testImage.png")));
+		try {
+			Textures.put("blue", new Texture(classloader.getResource("blue.png")));
+			Textures.put("test", new Texture(classloader.getResource("testImage.png")));
+			Textures.put("icon-i", new Texture(classloader.getResource("Player/intellect.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

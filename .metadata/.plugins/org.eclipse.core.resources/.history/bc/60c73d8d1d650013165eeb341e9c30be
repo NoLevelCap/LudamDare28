@@ -1,0 +1,111 @@
+package com.nolevelcap.player.info;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import com.nolevelcap.main.MouseHandling;
+
+import mdesl.graphics.Color;
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+import mdesl.graphics.text.BitmapFont;
+
+public class Power {
+
+	public TextureRegion texture;
+	public Texture icon;
+	public int xref, yref;
+	private static final int width = 230;
+	private static final int height = 230;
+	private Rectangle boundingBox; 
+	private boolean mouseHover;
+	private int costAmount;
+	private boolean activated;
+	
+	private SpriteBatch draw;
+	
+	public Power(int type, int xref, int yref, Texture source, SpriteBatch draw, int costAmount){
+		texture = getTextureRegion(type, source);
+		this.draw = draw;
+		try {
+			this.icon = new Texture(draw.getResource("Player/intellect.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.xref = xref;
+		this.yref = yref;
+		this.costAmount = costAmount;
+		if(yref > 0){
+			activated = false;
+		} else {
+			activated = true;
+		}
+	}
+	
+	public void logic(MouseHandling mouse){
+		mouseHover = mouse.mouseHover(boundingBox);
+		if(mouseHover){
+			System.out.print("Hover");
+		}
+		if(mouse.leftClicked()){
+			System.out.print("Impressive");
+		}
+	}
+
+	public void render(int ox, int oy, BitmapFont font) {
+		if(!activated){
+		draw.setColor(Color.BLACK);
+		} else {
+			if (mouseHover) {
+				draw.setColor(Color.WHITE);
+			} else {
+				draw.setColor(Color.GRAY);
+			}
+		}
+		draw.draw(texture, ox+(xref*width), oy+(yref*height), width, height);
+		draw.draw(icon, 168-ox+(xref*width), 220-oy+(yref*height), 15, 15);
+		font.drawText(draw, costAmount + "", 100-ox+(xref*width), 205-oy+(yref*height));
+		boundingBox = new Rectangle(ox+(xref*width), oy+(yref*height), width, height);
+		draw.setColor(Color.WHITE);
+	}
+	
+	public TextureRegion getTextureRegion(int type, Texture source){
+		switch (type){
+		case 0:
+			return new TextureRegion(source, 0, 0, 32, 32);
+		case 1:
+			return new TextureRegion(source, 32, 0, 32, 32);
+		case 2:
+			return new TextureRegion(source, 64, 0, 32, 32);
+		case 3:
+			return new TextureRegion(source, 96, 0, 32, 32);
+		case 4:
+			return new TextureRegion(source, 128, 0, 32, 32);
+		case 5:
+			return new TextureRegion(source, 160, 0, 32, 32);
+		case 6:
+			return new TextureRegion(source, 192, 0, 32, 32);
+		case 7:
+			return new TextureRegion(source, 224, 0, 32, 32);
+		case 8:
+			return new TextureRegion(source, 0, 32, 32, 32);
+		default:
+			return new TextureRegion(source, 0, 0, 32, 32);
+		}
+	}
+	
+	public void onClick(){
+		if(activated){
+			
+		}
+	}
+	
+	public void onHover(){
+		if(activated){
+			
+		} else {
+			// Print display message from new display message class
+		}
+	}
+}

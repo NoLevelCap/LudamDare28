@@ -119,10 +119,17 @@ public class BitmapFont {
 	}
 	
 	public void drawText(SpriteBatch batch, CharSequence text, int x, int y) {
-		drawText(batch, text, x, y, 0, text.length());
+		drawText(batch, text, x, y, 0, text.length(), 1);
 	}
 	
-	public void drawText(SpriteBatch batch, CharSequence text, int x, int y, int start, int end) {
+	public void drawText(SpriteBatch batch, CharSequence text, int x, int y, int divisor) {
+		drawText(batch, text, x, y, 0, text.length(), divisor);
+	}
+	
+	public void drawText(SpriteBatch batch, CharSequence text, int x, int y, int start, int end, int divisor) {
+		if (divisor == 0) {
+			divisor = 1;
+		}
 		Glyph lastGlyph = null;
 		for (int i=start; i<end; i++) {
 			char c = text.charAt(i);
@@ -137,8 +144,39 @@ public class BitmapFont {
 				x += lastGlyph.getKerning(c);
 			
 			lastGlyph = g;
-			batch.draw(g.region, x + g.xoffset, y + g.yoffset, g.width, g.height);
-			x += g.xadvance;
+			batch.draw(g.region, x + g.xoffset, y + g.yoffset/divisor, g.width/divisor, g.height/divisor);
+			x += g.xadvance/divisor;
+		}
+	}
+	
+	public void drawBigText(SpriteBatch batch, CharSequence text, int x, int y) {
+		drawBigText(batch, text, x, y, 0, text.length(), 1);
+	}
+	
+	public void drawBigText(SpriteBatch batch, CharSequence text, int x, int y, float multiplier) {
+		drawBigText(batch, text, x, y, 0, text.length(), multiplier);
+	}
+	
+	public void drawBigText(SpriteBatch batch, CharSequence text, int x, int y, int start, int end, float multiplier) {
+		if (multiplier == 0) {
+			multiplier = 1;
+		}
+		Glyph lastGlyph = null;
+		for (int i=start; i<end; i++) {
+			char c = text.charAt(i);
+			//TODO: make unsupported glyphs a bit cleaner...
+			if (c > glyphs.length || c < 0)
+				continue;
+			Glyph g = glyphs[c];
+			if (g==null)
+				continue;
+			
+			if (lastGlyph!=null)
+				x += lastGlyph.getKerning(c);
+			
+			lastGlyph = g;
+			batch.draw(g.region, x + g.xoffset, y + g.yoffset*multiplier, g.width*multiplier, g.height*multiplier);
+			x += g.xadvance*multiplier;
 		}
 	}
 	

@@ -1,0 +1,57 @@
+package mdesl.graphics;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import mdesl.graphics.text.BitmapFont;
+
+import com.nolevelcap.main.MouseHandling;
+
+public class Button {
+	
+	private String buttontext;
+	private SpriteBatch draw;
+	private Rectangle boundingBox; 
+	private boolean mouseHover, mouseClicked;
+	private Texture buttonBackground;
+	private BitmapFont font;
+	private int buttonType;
+	
+	
+	public Button(String text, SpriteBatch draw, BitmapFont font, int buttonType){
+		this.buttontext = text;
+		this.draw = draw;
+		this.font = font;
+		this.buttonType = buttonType;
+		try {
+			this.buttonBackground = new Texture(draw.getResource("Player/submitButton.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void logic(MouseHandling mouse){
+		mouseHover = mouse.mouseHover(boundingBox);
+		
+		mouseClicked = mouse.leftClicked();
+		
+		if(mouseHover){
+			if(mouseClicked){
+				System.out.print("ButtonClucked");
+			}
+		}
+	}
+	
+	public void render(int x, int y){
+		if(!mouseHover){
+			draw.setColor(Color.DARK_GRAY);
+		} else {
+			draw.setColor(Color.GRAY);
+		}
+		draw.draw(buttonBackground, x, y, 168, 64);
+		boundingBox = new Rectangle(x, y, 168, 64);
+		draw.setColor(Color.BLACK);
+		font.drawText(draw, buttontext, x+20, y+17);
+		draw.setColor(Color.WHITE);
+	}
+}

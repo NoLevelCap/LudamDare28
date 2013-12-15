@@ -1,0 +1,11 @@
+package mdesl.graphics;
+
+public class Button {
+	
+	private String buttontext;
+	private SpriteBatch draw;
+	
+	public Button(String text, SpriteBatch draw){
+		
+	}
+}

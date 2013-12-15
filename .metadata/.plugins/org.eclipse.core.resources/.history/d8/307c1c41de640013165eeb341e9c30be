@@ -1,7 +1,0 @@
-package com.nolevelcap.player;
-
-public class Power {
-	public Power(int id){
-		
-	}
-}

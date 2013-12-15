@@ -37,6 +37,7 @@ public class Player {
 	private int AnimationIndex;
 	private boolean flipped, moving, jumped, colliding, scrolling;
 	private JumpEffect jump;
+	public int intellect = 200;
 	
 	public Player(SpriteBatch draw, World world, Physics physics){
 		this.world = world;

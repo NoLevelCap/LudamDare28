@@ -1,0 +1,18 @@
+package mdesl.graphics;
+
+import com.nolevelcap.main.MouseHandling;
+
+public class Button {
+	
+	private String buttontext;
+	private SpriteBatch draw;
+	
+	public Button(String text, SpriteBatch draw){
+		this.buttontext = text;
+		this.draw = draw;
+	}
+	
+	public void logic(MouseHandling mouse){
+
+	}
+}

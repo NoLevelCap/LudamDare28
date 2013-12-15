@@ -1,0 +1,22 @@
+package com.nolevelcap.player.info;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class HolySlimes extends Power {
+
+	
+	public static final int type = 0;
+	public static final int costAmount = 10;
+	public static final String desc[] = {"Get the slimes to help you ","in your time of need!"};
+	public static final String name = "Test";
+	
+	public HolySlimes(int id, int lvl, Texture source, SpriteBatch draw) {
+		super(type, id, lvl, source, draw, costAmount, desc, name);
+	}
+	
+	public void init(){}
+	
+
+}

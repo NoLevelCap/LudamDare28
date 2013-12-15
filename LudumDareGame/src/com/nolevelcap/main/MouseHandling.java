@@ -8,11 +8,13 @@ import org.lwjgl.opengl.Display;
 public class MouseHandling {
 	
 	private int x, y;
+	private boolean leftClicked;
 	
 	public void logic(){
 		x = Mouse.getX(); // will return the X coordinate on the Display.
 		y = Mouse.getY(); // will return the Y coordinate on the Display.
 		y = Display.getHeight() - y;
+		leftClicked = Mouse.isButtonDown(0);
 	}
 	
 	public boolean mouseHover(Rectangle comp){
@@ -22,7 +24,13 @@ public class MouseHandling {
 		} else {
 			return false;
 		}
-		
-
+	}
+	
+	public boolean leftClicked(){
+		if (Mouse.isButtonDown(0)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
