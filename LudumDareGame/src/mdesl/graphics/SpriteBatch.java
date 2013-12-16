@@ -424,8 +424,8 @@ public class SpriteBatch {
 	
 	public URL getResource(String src){
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		System.out.println(src);
-		System.out.println(classLoader.getResource(src));
+		System.out.println("SRC:"+src);
+		System.out.println("URL:"+classLoader.getResource("res/title.png"));
 		URL loc = classLoader.getResource(src);
 		return loc;
 	}
