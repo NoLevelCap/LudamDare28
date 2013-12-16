@@ -13,14 +13,14 @@ import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
 import mdesl.graphics.text.BitmapFont;
 
-public class ResourceLoader {
+public class ResourceLoad {
 	
 	private ClassLoader classloader;
 	public HashMap<String, Texture> Textures;
 	public HashMap<String, Texture> TextureRegions;
 	private SpriteBatch draw;
 	
-	public ResourceLoader(SpriteBatch draw, ClassLoader cl){
+	public ResourceLoad(SpriteBatch draw, ClassLoader cl){
 		this.draw = draw;
 		this.classloader = cl;
 	}
@@ -76,7 +76,7 @@ public class ResourceLoader {
 		try {
 			Textures.put("blue", new Texture(classloader.getResource("blue.png")));
 			Textures.put("test", new Texture(classloader.getResource("testImage.png")));
-			Textures.put("icon-i", new Texture(classloader.getResource("Player/intellect.png")));
+			Textures.put("icon-i", new Texture(classloader.getResource("intellect.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

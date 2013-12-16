@@ -1,0 +1,87 @@
+package com.nolevelcap.entity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+
+import com.nolevelcap.main.MainGame;
+import com.nolevelcap.player.Physics;
+import com.nolevelcap.player.attacks.Bullet;
+import com.nolevelcap.world.World;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Enemies {
+	
+	public Texture texture;
+	SpriteBatch draw;
+	MainGame game;
+	ArrayList<Enemy> enemies;
+	Physics physics;
+	World world;
+	Random ran;
+	long lastSpawn, currentTime, lastTime;
+	
+	public Enemies(SpriteBatch draw, MainGame game, Physics physics, World world){
+		this.draw = draw;
+		this.game = game;
+		this.physics = physics;
+		this.world = world;
+		this.enemies = new ArrayList<>();
+		this.ran = new Random();
+		try {
+			this.texture = new Texture(draw.getResource("Enemy/GreenSlime.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void logic(){
+		
+		int spawnGap = 100;
+		currentTime = game.getTime();
+		sinceLastMove = currentTime - lastTime;
+		if (sinceLastMove > spawnGap){
+			if(AnimationIndex<3){
+				AnimationIndex+=1;
+			} else {
+				AnimationIndex = 0;
+			}
+			sinceLastMove = 0;
+			lastTime = currentTime;
+			Currentplayer = player[AnimationIndex];
+		}
+		
+		for (Enemy e: enemies){
+			e.Logic();
+		}
+	}
+	
+	public void render(){
+		draw.begin();
+		for (Enemy e: enemies){
+			e.Render();
+		}
+		draw.end();
+	}
+	
+	public void checkForInput(){
+		//Controls to be placed here
+		Display.processMessages();
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+			int px = ran.nextInt(1280-64);
+			spawnEnemy(px, 64);
+		}
+		
+	}
+	
+	public void spawnEnemy(int x, int y){
+		Enemy e = new Enemy(draw, physics, world, x, y);
+		enemies.add(e);
+	}
+}

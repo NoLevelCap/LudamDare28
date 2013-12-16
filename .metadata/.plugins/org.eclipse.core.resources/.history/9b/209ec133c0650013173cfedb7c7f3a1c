@@ -1,0 +1,18 @@
+package com.nolevelcap.main;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.text.BitmapFont;
+
+public class About {
+	
+	SpriteBatch draw;
+	BitmapFont MainMenuFont;
+	BitmapFont MainFont;
+	Texture Background;
+	
+	public About(SpriteBatch draw, BitmapFont MainMenuFont, BitmapFont MainFont, MainGame game){
+		this.draw = draw;
+		this.Background = new Texture(draw.getResource("title/propperback.png"));
+	}
+}

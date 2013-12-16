@@ -1,0 +1,16 @@
+package com.nolevelcap.entity;
+
+import com.nolevelcap.main.MainGame;
+
+import mdesl.graphics.SpriteBatch;
+
+public class Enemies {
+	
+	SpriteBatch draw;
+	MainGame game;
+	
+	public Enemies(SpriteBatch draw, MainGame game){
+		this.draw = draw;
+		this.game = game;
+	}
+}

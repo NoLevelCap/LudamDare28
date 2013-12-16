@@ -1,0 +1,25 @@
+package com.nolevelcap.entity;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Enemy {
+		
+		public Texture texture;
+		
+		public Enemy(SpriteBatch draw){
+			this.texture = new Texture(draw.getResource("Enemy/GreenSlime.png"));
+		}
+		
+		public void Render(){
+			
+		}
+		
+		public void Logic(){
+			
+		}
+		
+		public void Animation(){
+			
+		}
+}

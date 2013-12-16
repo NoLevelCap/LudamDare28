@@ -1,0 +1,11 @@
+package com.nolevelcap.entity;
+
+public class Drop {
+	public Drop(){
+		
+	}
+	
+	public void render(){
+		
+	}
+}

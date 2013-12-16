@@ -1,0 +1,44 @@
+package com.nolevelcap.main;
+
+import java.io.IOException;
+
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+
+import mdesl.graphics.Color;
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.text.BitmapFont;
+
+public class About {
+	
+	SpriteBatch draw;
+	BitmapFont MainMenuFont;
+	BitmapFont MainFont;
+	Texture Background;
+	
+	public About(SpriteBatch draw, BitmapFont MainMenuFont, BitmapFont MainFont, MainGame game){
+		this.draw = draw;
+		this.MainFont = MainFont;
+		this.MainMenuFont = MainMenuFont;
+		try {
+			this.Background = new Texture(draw.getResource("titlescreen/propperback.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void render(){
+		draw.begin();
+		draw.setColor(Color.WHITE);
+		draw.draw(Background, 0, 0, Display.getWidth(), Display.getHeight());
+		displayText();
+		draw.end();
+	}
+
+	public void displayText() {
+		draw.setColor(Color.BLACK);
+		MainMenuFont.drawBigText(draw, "ABOUT", 360, 10, 3);
+		MainFont.drawBigText(draw, "'Welcome to the Library', is a game made by James (Capitals) Ahsam", 200, 150, 2);
+	}
+}

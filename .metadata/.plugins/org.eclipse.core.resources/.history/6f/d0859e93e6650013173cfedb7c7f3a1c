@@ -1,0 +1,20 @@
+package com.nolevelcap.entity;
+
+import java.awt.Rectangle;
+
+public class Drop {
+	
+	public Rectangle boundingBox;
+	
+	public Drop(){
+		
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void setBoundingBox(Rectangle Rect){
+		boundingBox = Rect;
+	}
+}

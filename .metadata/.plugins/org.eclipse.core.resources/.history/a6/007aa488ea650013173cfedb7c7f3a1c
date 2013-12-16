@@ -1,0 +1,70 @@
+package com.nolevelcap.entity;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import org.lwjgl.util.vector.Vector2f;
+
+import com.nolevelcap.player.Player;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Drop {
+	
+	public Rectangle boundingBox;
+	Texture tex;
+	Vector2f location;
+	SpriteBatch draw;
+	int type;
+	
+	public Drop(int x, int y, int type, SpriteBatch draw){
+		this.draw = draw;
+		this.type = type;
+		location = new Vector2f(x, y);
+	}
+	
+	public void render(){
+		draw.draw(tex, location.x, location.y, tex.getWidth(), tex.getHeight());
+		setBoundingBox(new Rectangle((int) location.x, (int) location.y, tex.getWidth(), tex.getHeight()));
+	}
+	
+	public void setBoundingBox(Rectangle Rect){
+		boundingBox.setBounds(Rect);
+	}
+	
+	public void setInformation(Texture tex){
+		this.tex = tex;
+		setBoundingBox(new Rectangle((int) location.x, (int) location.y, tex.getWidth(), tex.getHeight()));
+	}
+	
+	public void getInfo(int type){
+		switch(type){
+		case 1:
+			try {
+				setInformation(new Texture(draw.getResource("Player/coin.png")));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 0:
+			try {
+				setInformation(new Texture(draw.getResource("Player/intellect.png")));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+	}
+	
+	public void collide(Player player){
+		switch(type){
+		case 1:
+			player.gold += 1;
+			break;
+		case 0:
+			player.intellect += 1;
+			break;
+		}
+	}
+}

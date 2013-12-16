@@ -1,0 +1,34 @@
+package com.nolevelcap.main;
+
+import com.nolevelcap.player.Player;
+import com.nolevelcap.player.info.Power;
+
+import mdesl.graphics.SpriteBatch;
+
+public class UI {
+	
+	private SpriteBatch draw;
+	private Player player;
+	private Power cp;
+	private MouseHandling mouse;
+	private Texture healthTiles;
+	private TextureRegion[] health;
+	
+	public UI(SpriteBatch draw, Player player, MouseHandling mouse){
+		this.draw = draw;
+		this.player = player;
+		this.mouse = mouse;
+		this.cp = this.player.currentPower;
+		this.healthTiles = new Texture(draw.getResource("Player/health.png"));
+	}
+	
+	public void render(){
+		draw.begin();
+		cp.renderJustImage(640-64, 659-64, 128, 128);
+		draw.end();
+	}
+	
+	public void logic(){
+		cp.logic(mouse, this);
+	}
+}

@@ -1,0 +1,19 @@
+package com.nolevelcap.entity;
+
+import java.io.IOException;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Intellect extends Drop {
+	public Intellect(int x, int y, SpriteBatch draw){
+		super(x, y);
+		Texture intel = null;
+		try {
+			intel = new Texture(draw.getResource("Player/coin.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		super.setInformation(gold);
+	}
+}

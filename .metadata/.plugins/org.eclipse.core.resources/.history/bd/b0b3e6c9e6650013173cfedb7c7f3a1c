@@ -1,0 +1,25 @@
+package com.nolevelcap.entity;
+
+import java.awt.Rectangle;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Drop {
+	
+	public Rectangle boundingBox;
+	Texture tex;
+	Vector2f location;
+	
+	public Drop(Texture tex){
+		this.tex = tex;
+	}
+	
+	public void render(SpriteBatch draw,){
+		draw.draw(tex, x, y, width, height, originX, originY, rotationRadians, u, v, u2, v2);
+	}
+	
+	public void setBoundingBox(Rectangle Rect){
+		boundingBox = Rect;
+	}
+}

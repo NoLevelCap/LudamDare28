@@ -1,0 +1,46 @@
+package com.nolevelcap.main;
+
+import java.io.IOException;
+
+import com.nolevelcap.player.Player;
+import com.nolevelcap.player.info.Power;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class UI {
+	
+	private SpriteBatch draw;
+	private Player player;
+	private Power cp;
+	private MouseHandling mouse;
+	private Texture healthTiles;
+	private TextureRegion[] health;
+	
+	public UI(SpriteBatch draw, Player player, MouseHandling mouse){
+		this.draw = draw;
+		this.player = player;
+		this.mouse = mouse;
+		this.cp = this.player.currentPower;
+		try {
+			this.healthTiles = new Texture(draw.getResource("Player/health.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void render(){
+		draw.begin();
+		cp.renderJustImage(640-64, 659-64, 128, 128);
+		draw.end();
+	}
+	
+	public void logic(){
+		cp.logic(mouse, this);
+	}
+	
+	public initHealth(){
+		health = new TextureRegion[18];
+	}
+}

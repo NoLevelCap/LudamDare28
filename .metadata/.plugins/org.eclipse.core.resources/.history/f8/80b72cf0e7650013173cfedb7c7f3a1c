@@ -1,0 +1,12 @@
+package com.nolevelcap.entity;
+
+import mdesl.graphics.SpriteBatch;
+
+public class Gold extends Drop{
+	public Gold(int x, int y, SpriteBatch draw){
+		super(x, y);
+		Texture gold = new Texture(draw.getResource("Player/coin.png"));
+		super.setInformation(tex);
+	}
+
+}

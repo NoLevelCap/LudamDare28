@@ -22,7 +22,7 @@ public class JumpEffect extends Effect{
 	public JumpEffect(SpriteBatch draw){
 		this.draw = draw;
 		try {
-			this.extraOneTileSet = new Texture(this.draw.getResource("player//JumpExtra.png"));
+			this.extraOneTileSet = new Texture(this.draw.getResource("JumpExtra.png"));
 	    	System.out.print("Test");
 		} catch (IOException e) {
 			e.printStackTrace();

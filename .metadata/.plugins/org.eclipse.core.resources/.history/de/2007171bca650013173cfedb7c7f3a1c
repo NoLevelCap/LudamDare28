@@ -1,0 +1,34 @@
+package com.nolevelcap.entity;
+
+import java.io.IOException;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+public class Enemy {
+		
+		public Texture texture;
+		SpriteBatch draw;
+		int x;
+		
+		public Enemy(SpriteBatch draw){
+			this.draw = draw;
+			try {
+				this.texture = new Texture(draw.getResource("Enemy/GreenSlime.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void Render(){
+			draw.draw(texture, 0, 0, 128, 128);
+		}
+		
+		public void Logic(){
+			x+=1;
+		}
+		
+		public void Animation(){
+			
+		}
+}

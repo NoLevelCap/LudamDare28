@@ -1,0 +1,66 @@
+package com.nolevelcap.main;
+
+import java.io.IOException;
+
+import com.nolevelcap.player.Player;
+import com.nolevelcap.player.info.Power;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+
+public class UI {
+	
+	private SpriteBatch draw;
+	private Player player;
+	private Power cp;
+	private MouseHandling mouse;
+	private Texture healthTiles;
+	private TextureRegion[] health;
+	
+	public UI(SpriteBatch draw, Player player, MouseHandling mouse){
+		this.draw = draw;
+		this.player = player;
+		this.mouse = mouse;
+		this.cp = this.player.currentPower;
+		try {
+			this.healthTiles = new Texture(draw.getResource("Player/health.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		initHealth();
+	}
+	
+	public void render(){
+		draw.begin();
+		cp.renderJustImage(640-64, 659-64, 128, 128);
+		draw.draw(health[17], 0, 0, 128, 8);
+		draw.end();
+	}
+	
+	public void logic(){
+		cp.logic(mouse, this);
+	}
+	
+	public void initHealth(){
+		health = new TextureRegion[18];
+		health[17] = new TextureRegion(healthTiles, 0, 0, 64, 8);
+		health[16] = new TextureRegion(healthTiles, 64, 0, 64, 8);
+		health[15] = new TextureRegion(healthTiles, 128, 0, 64, 8);
+		health[14] = new TextureRegion(healthTiles, 192, 0, 64, 8);
+		health[13] = new TextureRegion(healthTiles, 256, 0, 64, 8);
+		health[12] = new TextureRegion(healthTiles, 320, 0, 64, 8);
+		health[11] = new TextureRegion(healthTiles, 384, 0, 64, 8);
+		health[10] = new TextureRegion(healthTiles, 448, 0, 64, 8);
+		health[9] = new TextureRegion(healthTiles, 0, 8, 64, 8);
+		health[8] = new TextureRegion(healthTiles, 64, 8, 64, 8);
+		health[7] = new TextureRegion(healthTiles, 128, 8, 64, 8);
+		health[6] = new TextureRegion(healthTiles, 192, 8, 64, 8);
+		health[5] = new TextureRegion(healthTiles, 256, 8, 64, 8);
+		health[4] = new TextureRegion(healthTiles, 320, 8, 64, 8);
+		health[3] = new TextureRegion(healthTiles, 384, 8, 64, 8);
+		health[2] = new TextureRegion(healthTiles, 448, 8, 64, 8);
+		health[1] = new TextureRegion(healthTiles, 0, 16, 64, 8);
+		health[0] = new TextureRegion(healthTiles, 64, 16, 64, 8);
+	} 
+}

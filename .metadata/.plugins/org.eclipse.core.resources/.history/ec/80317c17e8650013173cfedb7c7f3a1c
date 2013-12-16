@@ -1,0 +1,8 @@
+package com.nolevelcap.entity;
+
+public class Intellect extends Drop {
+	public Intellect(int x, int y){
+		super(x, y);
+		super.setInformation(tex);
+	}
+}

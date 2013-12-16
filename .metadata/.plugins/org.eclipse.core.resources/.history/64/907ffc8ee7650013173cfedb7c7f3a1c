@@ -1,0 +1,9 @@
+package com.nolevelcap.entity;
+
+public class Gold extends Drop{
+	public Gold(){
+		super(, x, y);
+		
+	}
+
+}

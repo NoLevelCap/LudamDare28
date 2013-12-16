@@ -1,0 +1,87 @@
+package Test;
+
+import java.io.IOException;
+import java.net.URL;
+
+import mdesl.graphics.Color;
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.test.Game;
+import mdesl.test.SimpleGame;
+import mdesl.test.Util;
+
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+
+import static org.lwjgl.opengl.GL11.*;
+
+	public class Test extends SimpleGame{
+		private static final int SWIDTH = 1280;
+		private static final int SHEIGHT = 720;
+		private SpriteBatch batch;
+		private Texture parachuter;
+		public long timesec, timestart;
+		
+		public static void main(String[] args) throws LWJGLException{
+			Game game = new Test();
+			game.setDisplayMode(SWIDTH, SHEIGHT, false);
+			game.start();
+		}
+		
+		public void create() throws LWJGLException{
+			super.create();
+			//Get Parachuter
+			
+			glClearColor(0.5f, .5f, .5f, 1f);
+			batch = new SpriteBatch();
+			
+			try {
+				//parachuter = new Texture(new URL("file:"+System.getProperty("user.dir")+"./res/blue.png"), Texture.NEAREST, true);
+				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+				URL url = classLoader.getResource("blue.png");
+				parachuter = new Texture(url, Texture.NEAREST, true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+			timestart = this.getTime();
+		}
+
+		protected void resize() throws LWJGLException {
+			super.resize();
+			batch.resize(Display.getWidth(), Display.getHeight());
+		}
+
+		protected void dispose() throws LWJGLException {
+			super.dispose();
+		}
+
+		protected void render() throws LWJGLException {
+			super.render();
+			
+			//target.render();
+			//enemy.render();
+			//player.render();
+			
+			batch.begin();
+			
+			batch.draw(parachuter, 0,0, 210, 210);
+			
+			batch.end();
+			
+			Logic();
+		}
+		
+		
+		protected void Logic(){
+
+			Display.processMessages();
+			
+		}
+		
+		
+		
+		
+	}

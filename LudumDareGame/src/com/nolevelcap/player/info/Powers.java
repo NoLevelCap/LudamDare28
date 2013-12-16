@@ -37,12 +37,12 @@ public class Powers {
 		this.player = player;
 		this.game = game;
 		try {
-			this.powersTileset = new Texture(draw.getResource("player/Powers.png"));
+			this.powersTileset = new Texture(draw.getResource("Powers.png"));
 			this.Background = new Texture(draw.getResource("Desktop.png"));
-			this.descBackground = new Texture(draw.getResource("Player/powers-backgroundLarge.png"));
-			this.titleBackground = new Texture(draw.getResource("Player/powers-background.png"));
-			this.submitButton = new Texture(draw.getResource("Player/submitButton.png"));
-			this.icon = new Texture(draw.getResource("Player/intellect.png"));
+			this.descBackground = new Texture(draw.getResource("powers-backgroundLarge.png"));
+			this.titleBackground = new Texture(draw.getResource("powers-background.png"));
+			this.submitButton = new Texture(draw.getResource("submitButton.png"));
+			this.icon = new Texture(draw.getResource("intellect.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

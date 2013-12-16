@@ -1,0 +1,15 @@
+package com.nolevelcap.entity;
+
+public class Drop {
+	public Drop(){
+		
+	}
+	
+	public void render(){
+		
+	}
+	
+	public void setBoundingBox(Rectangle Rect){
+		
+	}
+}

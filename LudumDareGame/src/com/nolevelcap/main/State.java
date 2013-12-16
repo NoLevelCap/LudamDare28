@@ -3,7 +3,10 @@ package com.nolevelcap.main;
 public enum State {
 	MAIN_MENU_STATE(0),
 	PLAY_GAME_STATE(1),
-	POWERS_MENU_STATE(2);
+	POWERS_MENU_STATE(2),
+	ABOUT_STATE(3),
+	HELP_STATE(4),
+	GAME_OVER_STATE(5);
 	
 	 public final int STATE;   // in kilograms
 	 State(int STATE) {

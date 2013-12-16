@@ -1,0 +1,5 @@
+package com.nolevelcap.entity;
+
+public class Intellect extends Drop {
+
+}

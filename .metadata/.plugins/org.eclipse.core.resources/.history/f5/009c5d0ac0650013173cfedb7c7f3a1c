@@ -1,0 +1,10 @@
+package com.nolevelcap.main;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.text.BitmapFont;
+
+public class About {
+	public About(SpriteBatch draw, BitmapFont MainMenuFont, BitmapFont MainFont, MainGame game){
+		
+	}
+}
