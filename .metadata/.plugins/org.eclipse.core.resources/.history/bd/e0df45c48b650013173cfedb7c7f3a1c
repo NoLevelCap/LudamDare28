@@ -1,0 +1,5 @@
+package com.nolevelcap.player.attacks;
+
+public class Bullet {
+
+}

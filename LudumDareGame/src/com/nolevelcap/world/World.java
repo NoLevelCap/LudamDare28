@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 
-import com.nolevelcap.main.ResourceLoader;
+import com.nolevelcap.player.Player;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import mdesl.graphics.SpriteBatch;
@@ -21,7 +21,7 @@ import mdesl.graphics.TextureRegion;
 public class World {
 	
 	public int TileHeight = 4;
-	public int WorldLength = 800;
+	public int WorldLength = 400;
 	public Tile Tiles[][] = new Tile[WorldLength][TileHeight];
 	private SpriteBatch draw;
 	public Texture Background;
@@ -36,6 +36,7 @@ public class World {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		shift = 0;
 		create();
 	}
 	
@@ -46,14 +47,18 @@ public class World {
 		}
 		for(int vno = 0; vno<= TileHeight-1; vno++){
 			for(int lineno = 0; lineno<= WorldLength -1; lineno++){
-				Tiles[lineno][vno].render((int) shift);
+				if(shift+lineno*Tiles[lineno][vno].width < 2000 && shift+lineno*Tiles[lineno][vno].width > -200){
+					Tiles[lineno][vno].render((int) shift);
+				} else {
+					Tiles[lineno][vno].createCollisionBox((int) shift);
+				}
 			}
 		}
 		draw.end();
 	}
 	
 	public void logic(){
-		shift -= 0;
+		shift -= 5;
 	}
 	
 	public void create(){

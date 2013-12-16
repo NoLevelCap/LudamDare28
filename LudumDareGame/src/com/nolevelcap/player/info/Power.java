@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import com.nolevelcap.main.MouseHandling;
+import com.nolevelcap.main.UI;
 
 import mdesl.graphics.Color;
 import mdesl.graphics.SpriteBatch;
@@ -32,7 +33,7 @@ public class Power {
 		texture = getTextureRegion(type, source);
 		this.draw = draw;
 		try {
-			this.icon = new Texture(draw.getResource("Player/intellect.png"));
+			this.icon = new Texture(draw.getResource("intellect.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +46,15 @@ public class Power {
 			activated = false;
 		} else {
 			activated = true;
+		}
+	}
+	
+	public void logic(MouseHandling mouse, UI ui){
+		mouseHover = mouse.mouseHover(boundingBox);
+		if(mouseHover){
+			if(mouse.leftClicked()){
+				onClick(ui);
+			}
 		}
 	}
 	
@@ -104,6 +114,12 @@ public class Power {
 		draw.setColor(Color.WHITE);
 	}
 	
+	public void renderJustImage(int ox, int oy, int nw, int nh) {
+		draw.draw(texture, ox, oy, nw, nh);
+		boundingBox = new Rectangle(ox, oy, nw, nh);
+		draw.setColor(Color.WHITE);
+	}
+	
 	public TextureRegion getTextureRegion(int type, Texture source){
 		switch (type){
 		case 0:
@@ -147,6 +163,11 @@ public class Power {
 			// Print display message from new display message class
 		}
 	}
+	
+	public void onClick(UI ui){
+		
+	}
+	
 	
 	public void init(){
 		

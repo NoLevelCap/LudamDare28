@@ -1,0 +1,29 @@
+package com.nolevelcap.main;
+
+import java.io.IOException;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.text.BitmapFont;
+
+public class TitleScreen {
+	
+	SpriteBatch draw;
+	BitmapFont font;
+	Texture Background;
+	
+	public TitleScreen(SpriteBatch draw, BitmapFont font){
+		this.draw = draw;
+		this.font = font;
+		try {
+			this.Background = new Texture(draw.getResource("Desktop.png"));
+			this.submitButton = new Texture(draw.getResource("Player/submitButton.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void render(){
+		
+	}
+}

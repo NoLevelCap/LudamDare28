@@ -1,0 +1,61 @@
+package com.nolevelcap.player.attacks;
+
+import java.io.IOException;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+import com.nolevelcap.player.Physics;
+
+public class Bullet {
+	
+	private int wandx, wandy, mousex, mousey, gradient, yintercept;
+	private int ownx, owny;
+	private Physics phys;
+	private Texture bullet;
+	private SpriteBatch draw;
+	
+	public Bullet(int wandx, int wandy, int mousex, int mousey, Physics phys, SpriteBatch draw){
+		this.wandx = wandx;
+		this.wandy = wandy;
+		this.mousex = mousex;
+		this.mousey = mousey;
+		this.gradient = (wandy-mousey)/(wandx-mousex);
+		this.yintercept = wandy - gradient*wandx;
+		this.ownx = wandx;
+		this.owny = wandy;
+		this.phys = phys;
+		this.draw = draw;
+		try {
+			this.bullet = new Texture(draw.getResource("Player/bullet.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Info About Bullet"+wandx+" "+wandy+" "+mousex+" "+mousey+" "+gradient+" "+yintercept+" "+ownx+" "+owny+" "+bullet);
+		System.out.println((gradient*(0.5*phys.getDelta()) + yintercept));
+	}
+	
+	public void Logic(){
+		float dx = wandx-mousex;
+		float dy = wandy-mousey;
+		double length = Math.sqrt(dx*dx+dy*dy);
+		
+		dx/=length;
+		dy/=length;
+		
+		double speed = 0.01f;
+		
+		dx *= speed;
+		dy *= speed;
+		
+		ownx = (int) dx;
+		ownx = (int) dy;
+	}
+	
+	public void render(){
+	
+		
+		System.out.println(draw);
+		draw.draw(bullet, ownx, owny, 64, 64);
+	}
+}

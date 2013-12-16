@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 
 public class MouseHandling {
 	
-	private int x, y;
+	public int x, y;
 	private boolean leftClicked;
 	
 	public void logic(){

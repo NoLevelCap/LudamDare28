@@ -3,15 +3,13 @@ package com.nolevelcap.world;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import com.nolevelcap.main.ResourceLoader;
-
 import mdesl.graphics.SpriteBatch;
 import mdesl.graphics.Texture;
 import mdesl.graphics.TextureRegion;
 
 public class Tile {
 	
-	private int width = 64;
+	public int width = 64;
 	private int height = 64;
 	private int lineno;
 	private int vno;
@@ -45,6 +43,19 @@ public class Tile {
 			collisionBox = new Rectangle(worldshift+lineno*width, 720-vno*height, width, height);
 		case 3:
 			draw.draw(getType(type), worldshift+lineno*width, 720-vno*height, width, height);
+			collisionBox = new Rectangle(worldshift+lineno*width, 720-vno*height, width, height);
+		}
+	}
+	
+	public void createCollisionBox(int worldshift){
+		switch (type) {
+		case 0:
+			collisionBox = new Rectangle(worldshift+lineno*width, vno*height, width, height);
+		case 1:
+			collisionBox = new Rectangle(worldshift+lineno*width, vno*height, width, height);
+		case 2:
+			collisionBox = new Rectangle(worldshift+lineno*width, 720-vno*height, width, height);
+		case 3:
 			collisionBox = new Rectangle(worldshift+lineno*width, 720-vno*height, width, height);
 		}
 	}

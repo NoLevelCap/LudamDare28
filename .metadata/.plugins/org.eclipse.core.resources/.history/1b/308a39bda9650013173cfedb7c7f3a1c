@@ -1,0 +1,17 @@
+package com.nolevelcap.main;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.text.BitmapFont;
+
+public class TitleScreen {
+	
+	SpriteBatch draw;
+	
+	public TitleScreen(SpriteBatch draw, BitmapFont font){
+		this.draw = draw;
+	}
+	
+	public void render(){
+		
+	}
+}

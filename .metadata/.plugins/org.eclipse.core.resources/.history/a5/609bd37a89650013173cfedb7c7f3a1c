@@ -1,0 +1,170 @@
+package com.nolevelcap.player.info;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import com.nolevelcap.main.MouseHandling;
+import com.nolevelcap.main.UI;
+
+import mdesl.graphics.Color;
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.TextureRegion;
+import mdesl.graphics.text.BitmapFont;
+
+public class Power {
+
+	public TextureRegion texture;
+	public Texture icon;
+	public int xref, yref;
+	private int width = 230;
+	private int height = 230;
+	private Rectangle boundingBox; 
+	private boolean mouseHover;
+	public int costAmount;
+	public String desc[] = {"Welcome to this test of", " what this object is"};
+	public String name = "TEST"; 
+	public boolean activated;
+	public boolean purchased;
+	
+	private SpriteBatch draw;
+	
+	public Power(int type, int xref, int yref, Texture source, SpriteBatch draw, int costAmount, String[] desc, String name){
+		texture = getTextureRegion(type, source);
+		this.draw = draw;
+		try {
+			this.icon = new Texture(draw.getResource("Player/intellect.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.xref = xref;
+		this.yref = yref;
+		this.costAmount = costAmount;
+		this.desc = desc;
+		this.name = name;
+		if(yref > 0){
+			activated = false;
+		} else {
+			activated = true;
+		}
+	}
+	
+	public void logic(MouseHandling mouse, UI ui){
+		mouseHover = mouse.mouseHover(boundingBox);
+		if(mouseHover){
+			if(mouse.leftClicked()){
+			}
+		}
+	}
+	
+	public void logic(MouseHandling mouse, Powers powers){
+		mouseHover = mouse.mouseHover(boundingBox);
+		if(mouseHover){
+			System.out.print("Hover");
+			onHover(powers);
+			if(mouse.leftClicked()){
+				System.out.print("Impressive");
+				onClick(powers);
+			}
+		}
+	}
+
+	public void render(int ox, int oy, BitmapFont font) {
+		this.render(ox, oy, font, width, height);
+	}
+	
+	public void render(int ox, int oy, BitmapFont font, int nw, int nh) {
+		if(!activated){
+			draw.setColor(Color.BLACK);
+			} else {
+				if (purchased) {
+					draw.setColor(Color.WHITE);
+				} else {
+					if(mouseHover){
+						draw.setColor(Color.GRAY);
+					} else {
+						draw.setColor(Color.DARK_GRAY);
+					}
+				}
+			}
+		draw.draw(texture, ox+(xref*nw), oy+(yref*nh), nw, nh);
+		draw.draw(icon, 168-ox+(xref*nw), 220-oy+(yref*nh), 15, 15);
+		font.drawText(draw, costAmount + "", 100-ox+(xref*nw), 205-oy+(yref*nh));
+		boundingBox = new Rectangle(ox+(xref*nw), oy+(yref*nh), nw, nh);
+		draw.setColor(Color.WHITE);
+	}
+	
+	public void renderNoShift(int ox, int oy, BitmapFont font, int nw, int nh) {
+		if(!activated){
+		draw.setColor(Color.BLACK);
+		} else {
+			if (purchased) {
+				draw.setColor(Color.WHITE);
+			} else {
+				if(mouseHover){
+					draw.setColor(Color.GRAY);
+				} else {
+					draw.setColor(Color.DARK_GRAY);
+				}
+			}
+		}
+		draw.draw(texture, ox, oy, nw, nh);
+		font.drawText(draw, costAmount + "", 100-ox, 205-oy);
+		draw.setColor(Color.WHITE);
+	}
+	
+	public void renderJustImage(int ox, int oy, int nw, int nh) {
+		draw.draw(texture, ox, oy, nw, nh);
+		boundingBox = new Rectangle(ox, oy, nw, nh);
+		draw.setColor(Color.WHITE);
+	}
+	
+	public TextureRegion getTextureRegion(int type, Texture source){
+		switch (type){
+		case 0:
+			return new TextureRegion(source, 0, 0, 32, 32);
+		case 1:
+			return new TextureRegion(source, 32, 0, 32, 32);
+		case 2:
+			return new TextureRegion(source, 64, 0, 32, 32);
+		case 3:
+			return new TextureRegion(source, 96, 0, 32, 32);
+		case 4:
+			return new TextureRegion(source, 128, 0, 32, 32);
+		case 5:
+			return new TextureRegion(source, 160, 0, 32, 32);
+		case 6:
+			return new TextureRegion(source, 192, 0, 32, 32);
+		case 7:
+			return new TextureRegion(source, 224, 0, 32, 32);
+		case 8:
+			return new TextureRegion(source, 0, 32, 32, 32);
+		default:
+			return new TextureRegion(source, 0, 0, 32, 32);
+		}
+	}
+	
+	public void onClick(Powers powers){
+		if(activated && purchased){
+			powers.currentPower = this;
+		} else {
+			try {
+				powers.currentPower = new Power(0, 0, 0, new Texture(draw.getResource("Player/powersselect.png")), draw, 0, new String[] {"Purchase a tome before", "can select//use it"}, "The Tome of the Poor");
+			} catch (IOException e) {
+			}
+		}
+	}
+	
+	public void onHover(Powers powers){
+		if(activated){
+			powers.hoverPower = this;
+		} else {
+			// Print display message from new display message class
+		}
+	}
+	
+	public void init(){
+		
+	}
+	 
+}

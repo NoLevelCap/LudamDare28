@@ -1,0 +1,9 @@
+package com.nolevelcap.main;
+
+import mdesl.graphics.SpriteBatch;
+
+public class TitleScreen {
+	public TitleScreen(SpriteBatch draw){
+		
+	}
+}

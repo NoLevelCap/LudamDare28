@@ -1,0 +1,15 @@
+package com.nolevelcap.player.attacks;
+
+public class Bullet {
+	
+	private int wandx, wandy, mousex, mousey, gradient;
+	private int ownx, owny;
+	
+	public Bullet(int wandx, int wandy, int mousex, int mousey){
+		this.wandx = wandx;
+		this.wandy = wandy;
+		this.mousex = mousex;
+		this.mousey = mousey;
+		this.gradient = (wandy-mousey)/(wandx-mousex)
+	}
+}

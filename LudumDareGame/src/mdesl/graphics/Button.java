@@ -27,7 +27,7 @@ public class Button {
 		this.font = font;
 		this.buttonType = buttonType;
 		try {
-			this.buttonBackground = new Texture(draw.getResource("Player/submitButton.png"));
+			this.buttonBackground = new Texture(draw.getResource("submitButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,9 @@ public class Button {
 				System.out.println("ButtonClucked");
 				switch(buttonType){
 				case 0:
+					if(valid){
 					parent.changeGameState(PLAY_GAME_STATE);
+					}
 					break;
 				case 1:
 					for (int o = 0; o < parent.allPowers.size(); o++){

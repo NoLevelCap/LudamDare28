@@ -1,0 +1,7 @@
+package com.nolevelcap.player.attacks;
+
+public class Bullet {
+	public Bullet(int wandx, int wandy, int mousex, int mousey){
+		
+	}
+}

@@ -1,0 +1,26 @@
+package com.nolevelcap.player.attacks;
+
+import com.nolevelcap.player.Physics;
+
+public class Bullet {
+	
+	private int wandx, wandy, mousex, mousey, gradient, yintercept;
+	private int ownx, owny;
+	private Physics phys;
+	
+	public Bullet(int wandx, int wandy, int mousex, int mousey, Physics phys){
+		this.wandx = wandx;
+		this.wandy = wandy;
+		this.mousex = mousex;
+		this.mousey = mousey;
+		this.gradient = (wandy-mousey)/(wandx-mousex);
+		this.yintercept = wandy - gradient*wandx;
+		this.ownx = wandx;
+		this.owny = wandy;
+		this.phys = phys;
+	}
+	
+	public void Logic(){
+		owny = (int) (gradient*(0.5*phys.getDelta()) + yintercept);
+	}
+}

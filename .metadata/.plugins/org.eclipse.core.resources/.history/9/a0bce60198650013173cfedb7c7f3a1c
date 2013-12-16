@@ -1,0 +1,67 @@
+package com.nolevelcap.player.attacks;
+
+import java.awt.Rectangle;
+import java.io.IOException;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+
+import com.nolevelcap.player.Physics;
+
+public class Bullet {
+	
+	private int gradient, yintercept;
+	private int ownx, owny;
+	private Physics phys;
+	private Texture bullet;
+	private SpriteBatch draw;
+	private float YVelocity = 1;
+	private float YAcceleration;
+	private float XVelocity = 1;
+	private float XAcceleration;
+	private int dx, dy;
+	
+	public Bullet(int wandx, int wandy, int mousex, int mousey, Physics phys, SpriteBatch draw){
+		this.gradient = (wandy-mousey)/(wandx-mousex);
+		this.yintercept = wandy - gradient*wandx;
+		this.ownx = wandx;
+		this.owny = wandy;
+		this.phys = phys;
+		this.draw = draw;
+		try {
+			this.bullet = new Texture(draw.getResource("Player/bullet.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Info About Bullet"+wandx+" "+wandy+" "+mousex+" "+mousey+" "+gradient+" "+yintercept+" "+ownx+" "+owny+" "+bullet);
+		System.out.println((gradient*(0.5*phys.getDelta()) + yintercept));
+		dy = ownx;
+	}
+	
+	public void Logic(){
+		
+		YAcceleration  = phys.getNewAcceleration(YAcceleration);
+		
+		YVelocity = phys.getVelocity(YVelocity, YAcceleration);
+		
+		owny = (int) -phys.getNewY(YVelocity, owny);
+		
+		
+		YVelocity += 0.5;
+		//owny = (int) (gradient*(ownx*phys.getDelta()) + yintercept);
+		//System.out.print(gradient);
+		
+		XAcceleration  = phys.getNewAcceleration(XAcceleration);
+		
+		XVelocity = phys.getVelocity(XVelocity, XAcceleration);
+		
+		ownx = (int) phys.getNewY(XVelocity, ownx);
+		
+		XVelocity -= 0.5;
+	}
+	
+	public void render(){
+		System.out.println(draw);
+		draw.draw(bullet, ownx, owny, 64, 64);
+	}
+}

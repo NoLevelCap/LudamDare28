@@ -2,14 +2,23 @@ package com.nolevelcap.player;
 
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 
+import com.nolevelcap.entity.Drop;
+import com.nolevelcap.entity.Enemies;
+import com.nolevelcap.entity.Enemy;
 import com.nolevelcap.main.MainGame;
+import com.nolevelcap.main.MouseHandling;
+import com.nolevelcap.main.State;
+import com.nolevelcap.player.attacks.Bullet;
 import com.nolevelcap.player.effects.JumpEffect;
+import com.nolevelcap.player.info.Power;
 import com.nolevelcap.world.World;
 
 import mdesl.graphics.SpriteBatch;
@@ -31,21 +40,34 @@ public class Player {
 	private Rectangle collisionBox;
 	private World world;
 	private Physics physics;
+	private Enemies enemy;
 	private float ly, dy;
 	private boolean inAir;
 	private long sinceLastMove, currentTime, lastTime;
 	private int AnimationIndex;
-	private boolean flipped, moving, jumped, colliding, scrolling;
+	private boolean flipped, moving, jumped, colliding, scrolling, canshoot;
+	private long sinceLastshot, currentTimeshot, lastTimeshot;
 	private JumpEffect jump;
 	public int intellect = 200;
+	public int gold = 200;
+	public Power currentPower;
+	public ArrayList<Bullet> bullets;
+	public ArrayList<Bullet> removebullets;
+	private MouseHandling mouse;
+	public int health = 17;
+	public int intellectSpawnRate = 1;
+	public int goldSpawnRate = 1;
 	
-	public Player(SpriteBatch draw, World world, Physics physics){
+	
+	public Player(SpriteBatch draw, World world, Physics physics, MouseHandling mouse, Enemies enemy){
 		this.world = world;
 		this.physics = physics;
 		this.draw = draw;
+		this.mouse = mouse;
+		this.enemy = enemy;
 		jump = new JumpEffect(draw);
 		try {
-			this.playerTileSet = new Texture(this.draw.getResource("player//playerTileset.png"));
+			this.playerTileSet = new Texture(this.draw.getResource("playerTileset.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,18 +76,32 @@ public class Player {
 		ly = location.y;
 		dy = location.y;
 		initFrames();
+		bullets = new ArrayList<Bullet>();
+		removebullets = new ArrayList<Bullet>();
+		canshoot = true;
 	}
 	
 	public void render(){
 		draw.begin();
 		draw.draw(Currentplayer, location.x, location.y, width, height);
+		collisionBox.setRect(location.x, location.y, width, height);
 		draw.end();
 		if(inAir ){
 		jump.render(location.x, location.y);
 		} 
+		
+		draw.begin();
+		for (Bullet b: bullets){
+			b.render();
+		}
+		draw.end();
 	}
 	
 	public void logic(){
+		
+		if(health <= 0){
+			enemy.game.switchGameState(State.GAME_OVER_STATE);
+		}
 		
 		if (world.shift == 0){
 			scrolling = false;
@@ -87,12 +123,14 @@ public class Player {
 		
 		for(int vno = 0; vno<= world.TileHeight-1; vno++){
 			for(int lineno = 0; lineno<= world.WorldLength-1; lineno++){
-				if(physics.checkForCollision(desiredRect, world.Tiles[lineno][vno].collisionBox)){
-				//System.out.println("collision");
-					colliding = true;
-					YVelocity = 0;
-					dy = ly;
-				} 
+				if(world.shift+lineno*world.Tiles[lineno][vno].width < 2000 && world.shift+lineno*world.Tiles[lineno][vno].width > -200){
+					if(physics.checkForCollision(desiredRect, world.Tiles[lineno][vno].collisionBox)){
+					//System.out.println("collision");
+						colliding = true;
+						YVelocity = 0;
+						dy = ly;
+					} 
+				}
 			}
 		}
 		
@@ -106,7 +144,67 @@ public class Player {
 			inAir = true;
 		}
 
+		
+		for (Bullet b: bullets){
+			if(b.ownx < 2000 && b.ownx > -100){
+				b.Logic();
+			} else {
+				removebullets.add(b);
+			}
+			
+			if(b.owny > 580-32 || b.owny <= 120){
+				removebullets.add(b);
+			}
+		}
+		
+		bullets.removeAll(removebullets);
+		
+		
+		currentTimeshot = getTime();
+		if(!canshoot){
+			sinceLastshot = currentTimeshot - lastTimeshot;
+			if(sinceLastshot > 250){
+				canshoot = true;
+			} else {
+				sinceLastshot = getTime() - sinceLastshot;
+				System.out.println(sinceLastshot);
+			}
+		}
+		
+		for (Enemy e: enemy.enemies){
+			if(e.canCollide()){
+			if(physics.checkForCollision(e.boundingBox, collisionBox)){
+				e.collided();
+				YVelocity -= 3;
+				health -= 1;
+				System.out.println("Player Collides With "+e);
+			}
+			}
+			
+			for(Bullet b: bullets){
+				if(physics.checkForCollision(e.boundingBox, b.boundingBox)){
+					System.out.println("Bullet "+ b + "collided with enemy "+ e);
+					removebullets.add(b);
+					e.health -= 1;
+				}
+			}
+		}
+		
+		bullets.removeAll(removebullets);
+		
+		for (Drop e: enemy.drops){
+			if(physics.checkForCollision(e.boundingBox, collisionBox)){
+				e.collide(this);
+				System.out.println("Player Collides With "+e);
+				enemy.dropsRemove.add(e);
+			}
+			
+		}
+		
+		enemy.drops.removeAll(enemy.dropsRemove);
 	}
+	
+	
 	
 	public void animation(){
 		int AnimationSpeed = 100;
@@ -115,15 +213,11 @@ public class Player {
 		}
 		currentTime = getTime();
 		sinceLastMove = currentTime - lastTime;
-		//System.out.println(sinceLastMove);
 		if(scrolling && !moving || moving && !inAir || !flipped && !inAir && scrolling){
 		if (sinceLastMove > AnimationSpeed){
-			System.out.println("Activate+"+sinceLastMove);
 			if(AnimationIndex<3){
-				System.out.println("Activate ++");
 				AnimationIndex+=1;
 			} else {
-				System.out.println("Activate 0");
 				AnimationIndex = 0;
 			}
 			sinceLastMove = 0;
@@ -143,7 +237,6 @@ public class Player {
 		sinceLastMove = 0;
 		AnimationIndex = 0;
 		lastTime = getTime();
-		System.out.println(lastTime);
 	}
 	
 	public void flipFrames(){
@@ -196,6 +289,15 @@ public class Player {
 			}
 		}
 		
+		if (Keyboard.isKeyDown(Keyboard.KEY_B) || mouse.leftClicked()) {
+			if(canshoot){
+			Bullet bull = new Bullet((int) location.x, (int) location.y, mouse.x, mouse.y, physics, draw);
+			bullets.add(bull);
+			canshoot = false;
+			lastTimeshot =  getTime();
+			}
+		}
+		
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			if(flipped){
 				flipFrames();
@@ -222,7 +324,10 @@ public class Player {
 			}
 		}
 		
+		if(XAcceleration < 0 && location.x - XAcceleration > -32 || XAcceleration > 0 && location.x - XAcceleration < 1280){
 		location.x += XAcceleration;
+		}
+		
 		if (XAcceleration > 0 && !moving){
 			XAcceleration -= 1;
 		} else if (XAcceleration < 0 && !moving){
@@ -234,4 +339,9 @@ public class Player {
 	public long getTime() {
 	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
+	
+	public void setCurrentPower(Power cp){
+		this.currentPower = cp;
+	}
+	
 }

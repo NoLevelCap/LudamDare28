@@ -44,5 +44,13 @@ public class Physics {
 			return false;
 		}
 	}
+	
+	public int getDelta(){
+		return game.getDeltaTime();
+	}
+	
+	public long getTime(){
+		return game.getTime();
+	}
 
 }

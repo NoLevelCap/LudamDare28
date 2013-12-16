@@ -1,0 +1,33 @@
+package com.nolevelcap.main;
+
+import java.io.IOException;
+
+import org.lwjgl.opengl.Display;
+
+import mdesl.graphics.SpriteBatch;
+import mdesl.graphics.Texture;
+import mdesl.graphics.text.BitmapFont;
+
+public class TitleScreen {
+	
+	SpriteBatch draw;
+	BitmapFont font;
+	Texture[] Background;
+	
+	public TitleScreen(SpriteBatch draw, BitmapFont font){
+		this.draw = draw;
+		this.font = font;
+		try {
+			this.Background = new Texture[9];
+					(draw.getResource("titlescreen/propperback.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void render(){
+		draw.begin();
+		draw.draw(Background, 0, 0, Display.getWidth(), Display.getHeight());
+		draw.end();
+	}
+}

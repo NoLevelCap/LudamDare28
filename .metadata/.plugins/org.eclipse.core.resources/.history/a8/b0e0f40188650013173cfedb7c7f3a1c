@@ -1,0 +1,22 @@
+package com.nolevelcap.main;
+
+import com.nolevelcap.player.Player;
+
+import mdesl.graphics.SpriteBatch;
+
+public class UI {
+	
+	private SpriteBatch draw;
+	private Player player;
+	
+	public UI(SpriteBatch draw, Player player){
+		this.draw = draw;
+		this.player = player;
+	}
+	
+	public void render(){
+		draw.begin();
+		player.currentPower.renderJustImage(640-64, 700-64, 128, 128);
+		draw.end();
+	}
+}
